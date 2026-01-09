@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head></head>
+        <meta charset="utf-8">
+        <title>IndexForm</title>
+    </head>
+
+    <body>
+        <!-- 
+            表单：向服务器提交数据，如登录、注册等
+            form: 表单标签，包含所有表单元素
+            input: 表单输入元素
+            type: 输入类型
+                text: 文本输入框
+                password: 密码输入框
+                radio: 单选按钮
+                checkbox: 复选框
+                submit: 提交按钮
+                reset: 重置按钮
+            name: 输入框名称，提交表单时作为参数名发送到服务器
+            value: 输入框的默认值，提交表单时作为参数值发送到服务器
+        -->
+
+        <!-- 
+            action: 提交表单数据的地址
+            method: 提交表单数据的方式
+                get: 通过URL提交数据，数据会显示在地址栏中，适合提交少量数据
+                post: 通过请求体提交数据，数据不会显示在地址栏中，适合提交大量数据或敏感数据
+        -->
+        <form action="http://www.baidu.com" method="get" target="_blank">
+            <input type="text" name="username">
+            <input type="password" name="password">
+            <input type="submit" value="提交">
+        </form>
+
+        <h3>表单-登录类型界面</h3>
+        <form action="#">
+            <h4>1.type=text 输入框，默认20个字符左右</h4>
+            用户名：<input type="text" name="user"><br>
+            密码：<input type="password" name="pass"><br>
+
+            <h4>2.type-submit 数据提交</h4>
+            登陆：<input type="submit" value="登录"><br>
+            注册：<input type="submit" value="注册"><br>
+
+            <h4>3.type-image 图片</h4>
+            <!-- 
+                src: 图片地址
+                alt: 图片描述
+            -->
+            <input type="image" src="./images/imgsub.jpg" alt="提交按钮图片" width="50" height="20"><br>
+
+            <h4>4.type-radio 单选框</h4>
+            <!-- 
+                name: 单选框名称，同一组单选框必须相同
+                value: 单选框的值，提交表单时作为参数值发送到服务器
+                checked: 默认选中该单选框
+                disabled: 禁用该单选框
+                required: 该单选框必须选中
+                autofocus: 该单选框自动获取焦点
+                autocomplete: 该单选框自动完成
+                form: 该单选框所属的表单
+                formaction: 该单选框所属的表单的提交地址
+                formmethod: 该单选框所属的表单的提交方式
+                formenctype: 该单选框所属的表单的提交数据编码方式
+                formtarget: 该单选框所属的表单的提交数据目标
+                formnovalidate: 该单选框所属的表单的提交数据验证
+                formautocomplete: 该单选框所属的表单的提交数据自动完成
+            -->
+            <input type="radio" name="education" value="0" checked>小学</input>
+            <input type="radio" name="education" value="1" disabled>初中</input>
+            <input type="radio" name="education" value="2" required>高中</input>
+            <input type="radio" name="education" value="3">大学</input>
+
+            <h4>5.type-checkbox 复选框</h4>
+            <input type="checkbox" name="hobby" value="0">eat</input>
+            <input type="checkbox" name="hobby" value="1">sleep</input>
+            <input type="checkbox" name="hobby" value="2">do</input>
+
+            <h4>6.type-button 按钮 不会触发form里面的action,而是单独使用js交互处理</h4>
+            <!-- 
+                onclick: 按钮点击事件
+                onchange: 按钮值改变事件
+                onsubmit: 按钮提交事件
+                value: 按钮值
+                onreset: 按钮重置事件
+                onfocus: 按钮获取焦点事件
+                onblur: 按钮失去焦点事件
+                onmouseover: 按钮鼠标移入事件
+                onmouseout: 按钮鼠标移出事件
+                onkeydown: 按钮键盘按下事件
+                onkeyup: 按钮键盘弹起事件
+                onkeypress: 按钮键盘按下并弹起事件
+                onclickcapture: 按钮点击事件捕获
+                onclickbubble: 按钮点击事件冒泡
+                onclickpreventdefault: 按钮点击事件默认行为
+            -->
+            <input type="button" value="点我试试" onclick="alert('按钮被点击了')">
+
+            <h4>7.type-file 文件上传,添加附件 value:没有这个属性</h4>
+            <input type="file" value="点击选择文件">
+        </form>
+    </body>
+</html>
