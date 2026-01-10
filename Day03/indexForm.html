@@ -34,7 +34,7 @@
         </form>
 
         <h3>表单-登录类型界面</h3>
-        <form action="#">
+        <form action="#" id="test">
             <h4>1.type=text 输入框，默认20个字符左右</h4>
             用户名：<input type="text" name="user"><br>
             密码：<input type="password" name="pass"><br>
@@ -99,6 +99,28 @@
 
             <h4>7.type-file 文件上传,添加附件 value:没有这个属性</h4>
             <input type="file" value="点击选择文件">
+
+            <h4>8.type-reset 重置按钮,将输入框内容重置，慎用</h4>
+            <input type="reset" value="重置表单内容">
+
+            <h4>9.type-hidden 隐藏域，用于传递一些隐藏信息，隐藏input,不让用户看到</h4>
+            <input type="hidden" name="userid" value="lizuyan">
+            <!-- 
+            display:隐藏标签，不占位置，不显示 
+            visibility:隐藏标签，占位置，但是不显示
+            -->
+            <input type="text" style="display: none;">
+            <input type="text" style="visibility: hidden;">
+
+            <h4>10.type-textarea 多行文本输入框</h4>
+            留言：<textarea name="message" id="" cols="20" rows="20"></textarea>
+
+            <h4>11.选择下拉 select</h4>
+            <select name="gender" id="">
+                <option value="male">男</option>
+                <option value="female">女</option>
+                <option value="other">其他</option>
+            </select>
         </form>
     </body>
 </html>
