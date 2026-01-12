@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>resume demo</title>
+        <style>
+            .resume-text {
+                border: none; 
+                width: 100%;
+                box-sizing: border-box;
+                font-size: 0.9em;
+                outline: none; 
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="table">
+            <table border="2px" style="border-collapse: collapse; text-align: center; margin: auto; margin-top: 50px; height: 820px; font-size: .9em;">
+                <colgroup>
+                    <col style="width: 110px;">
+                    <col style="width: 120px;">
+                    <col style="width: 100px;">
+                    <col style="width: 100px;">
+                    <col style="width: 120px;">
+                    <col style="width: 180px;">
+                    <col style="width: 100px;">
+                </colgroup>
+                <caption style="font-weight: bold; margin-bottom: 20px; font-size: 1.1em; letter-spacing: 1em;">个人简历</caption>
+                <tbody>
+                    <tr>
+                        <td>姓名:</td>
+                        <td><input type="text" placeholder="请输入姓名" class="resume-text">
+                        </td>
+                        <td>性别:</td>
+                        <td>
+                            <input type="radio" name="gender" value="0" checked>男
+                            <input type="radio" name="gender" value="1">女
+                        </td>
+                        <td>出生年月:</td>
+                        <td>
+                            <input type="month" class="resume-text">
+                        </td>
+                        <td rowspan="4">
+                            <input type="file" value="点击选择文件" class="resume-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>民族:</td>
+                        <td>
+                            <select name="nation" id="" class="resume-text">
+                                <option value="HZ">汉族</option>
+                                <option value="MZ">苗族</option>
+                                <option value="Other">其他</option>
+                            </select>
+                        </td>
+                        <td>政治面貌:</td>
+                        <td>
+                            <select name="political_status" id="" class="resume-text">
+                                <option value="Member of the Communist Party of China">中共党员</option>
+                                <option value="A probationary member of the Communist Party of China">中共预备党员</option>
+                                <option value="League member">共青团员</option>
+                                <option value="China Democratic League">民盟</option>
+                                <option value="masses">群众</option>
+                                <option value="Other">其他</option>
+                            </select>
+                        </td>
+                        <td>身高:</td>
+                        <td>
+                            <input type="text" name="height" placeholder="请输入身高,***cm" class="resume-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>学制:</td>
+                        <td>
+                            <select name="education-system" id="" class="resume-text">
+                                <option value="0">全日制</option>
+                                <option value="1">非全日制</option>
+                            </select>
+                        </td>
+                        <td>学历:</td>
+                        <td>
+                            <select name="education" id="" class="resume-text">
+                                <option value="-1">博士后</option>
+                                <option value="0">博士</option>
+                                <option value="1">硕士</option>
+                                <option value="2">本科</option>
+                                <option value="3">专科</option>
+                                <option value="4">高中</option>
+                                <option value="5">初中</option>
+                                <option value="6">小学</option>
+                            </select>
+                        </td>
+                        <td>户籍:</td>
+                        <td>
+                            <div style="display: flex; flex-wrap: wrap; gap: 2px;">
+                                <select name="" id="province" class="resume-text" style="width: 100%; min-width: 70px;">
+                                    <option value="">选择省/直辖市</option>
+                                </select>
+                                <select name="" id="city" class="resume-text" style="width: 100%; min-width: 70px;">
+                                    <option value="">选择地级市/区</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>专业:</td>
+                        <td>
+                            <input type="text" name="major" placeholder="请输入专业" class="resume-text">
+                        </td>
+                        <td colspan="2">毕业学校:</td>
+                        <td colspan="2">
+                            <input type="text" name="school" placeholder="请输入毕业学校" class="resume-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-width: 1px;">技能&特长</td>
+                        <td colspan="6">
+                            <textarea name="skill" id="" class="resume-text"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>外语等级</td>
+                        <td colspan="2">
+                            <select name="foreign_language" id="" class="resume-text">
+                                <option value="0">托福|雅思</option>
+                                <option value="1">专八</option>
+                                <option value="2">六级</option>
+                                <option value="3">四级</option>
+                                <option value="4">其他</option>
+                            </select>
+                        </td>
+                        <td>计算机等级</td>
+                        <td colspan="3">
+                            <select name="computer" class="resume-text">
+                                <option value="1">一级</option>
+                                <option value="2">二级</option>
+                                <option value="3">其他</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="7" style="border-width: 1.1px;">个人履历</th>
+                    </tr>
+                    <tr>
+                        <td>时间</td>
+                        <td colspan="2">单位</td>
+                        <td colspan="4">经历</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="month" class="resume-text">
+                        </td>
+                        <td colspan="2">
+                            <input type="text" class="resume-text">
+                        </td>
+                        <td colspan="4">
+                            <textarea name="experience" id="" class="resume-text"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="month" class="resume-text">
+                        </td>
+                        <td colspan="2">
+                            <input type="text" class="resume-text">
+                        </td>
+                        <td colspan="4">
+                            <textarea name="experience" id="" class="resume-text"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="month" class="resume-text">
+                        </td>
+                        <td colspan="2">
+                            <input type="text" class="resume-text">
+                        </td>
+                        <td colspan="4">
+                            <textarea name="experience" id="" class="resume-text"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="7" style="border-width: 1.1px;">联系方式</th>
+                    </tr>
+                    <tr>
+                        <td>通讯地址</td>
+                        <td colspan="3">
+                            <input type="text" class="resume-text">
+                        </td>
+                        <td>联系电话</td>
+                        <td colspan="2">
+                            <input type="tel" class="resume-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td colspan="3">
+                            <input type="email" class="resume-text">
+                        </td>
+                        <td>个人主页</td>
+                        <td colspan="2">
+                            <input type="text" class="resume-text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="7" style="height: 70px; border-width: 2px;">自我评价</th>
+                    </tr>
+                    <tr>
+                        <th colspan="7" style="height: 150px;">
+                            <textarea name="evaluate" id="" class="resume-text"></textarea>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
