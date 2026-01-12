@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Day04 demo</title>
+
+        <style>
+            mark {
+                /* transparent */
+                background-color: transparent;
+            }
+
+            .wbr_c {
+                width: 100px;
+                background-color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- 
+        h5:新增标签
+        新增标签作用：语义化，更加是和SEO，容易被搜索引擎爬虫识别
+
+        视频、音频
+        本地存储
+        画布
+        废弃的一些可以用css代替的标签，center标签，form标签等 
+        -->
+
+        <!-- mark: 标记，突出显示文本-->
+        <p>
+            <mark>今天天气不错</mark>
+            来听一段儿相声
+        </p>
+
+        <!-- 
+            meter: 表示一个度量，比如进度条
+            value: 表示当前进度
+            min: 表示最小值
+            max: 表示最大值
+            low: 表示低位
+            high: 表示高位
+            optimum: 表示最佳值
+        -->
+        <p>
+            任务完成进度：
+            <meter value="0.7" min="0" max="1">70%</meter>
+        </p>
+        <meter value="150" min="10" max="100" high="70" low="20">浏览器不支持</meter>
+
+        <!-- 
+            progress: 进度条
+            value: 表示进度
+            max: 表示最大值
+            没有最小值属性,最小默认为0
+        -->
+        <progress value="50" max="100" min="50"></progress>
+
+        <!-- 
+            wbr: 单词换行符
+            作用：在单词中间添加一个换行符，浏览器在需要换行的时候可以在这个位置换行
+        -->
+        <p class="wbr_c">
+            I am a very long word that needs to be broken into multiple lines.
+        </p>
+        <P class="wbr_c">
+            I am a long words hahahahahahah<wbr>hahahahahahah</wbr>
+        </P>
+        <p class="wbr_c">
+            这是一个非常长的单词：super<wbr>cali<wbr>fragi<wbr>listic<wbr>expi<wbr>ali<wbr>docious
+        </p>
+        <p class="wbr_c">
+            访问我们的网站：https://www<wbr>.example<wbr>.com<wbr>/path<wbr>/to<wbr>/page<wbr>.html
+        </p>
+
+        <!-- 
+            <ruby>：包裹需要注音的文字和注音部分。
+            <rt>：用于显示注音，通常出现在上方（横排）或右侧（竖排）。
+            <rp>：用于在不支持ruby的浏览器中显示括号，包裹在<rt>周围。
+        -->
+        <ruby>
+            你好<rt>Nǐ hǎo</rt>
+            &nbsp;
+            阿西吧<rt>叹气</rt>
+        </ruby>
+
+        <p>
+            <ruby>中<rt>zhōng</rt></ruby>
+            <ruby>华<rt>huá</rt></ruby>
+            <ruby>人<rt>rén</rt></ruby>
+            <ruby>民<rt>mín</rt></ruby>
+            <ruby>共<rt>gòng</rt></ruby>
+            <ruby>和<rt>hé</rt></ruby>
+            <ruby>国<rt>guó</rt></ruby>
+        </p>
+
+        <p>
+            <ruby>日本語<rt>にほんご</rt></ruby>を
+            <ruby>勉強<rt>べんきょう</rt></ruby>します。
+        </p>
+
+        <!-- 
+            datalist: 可选列表
+            input list属性 = datalist的id属性
+        -->
+        <form action="#" method="post" id="top_form">
+            <input type="text" name="key" id="key" value="" list="gender_list">
+            <datalist id="gender_list">
+                <option -value="1">男</option>
+                <option -value="2">女</option>
+                <option -value="3">其他</option>
+            </datalist>
+
+            <select name="" id="">
+                <option -value="">男</option>
+                <option -value="">女</option>
+            </select>
+
+            <input type="submit" name="" id="" value="提交">
+        </form>
+
+        <!-- 
+            details:折叠信息
+            summary：标题，内容可见
+            open属性：默认展开，显示隐藏内容
+        -->
+        <details open="">
+            <summary>电脑配置</summary>
+            <ul>
+                <li>CPU: i7-8700K</li>
+                <li>内存: 16G</li>
+                <li>硬盘: 1T</li>
+                <li>显卡: 1080ti</li>
+            </ul>
+        </details>
+
+        <!-- 
+            figure: 表示独立的内容单元，通常包含图像、图表、照片、代码片段等，并带有可选的标题
+            figcaption: 表示figure的标题
+        -->
+        <figure>
+            <img src="./images/DSC_4717.jpg" alt="风光" style="width: 8%; height: auto;">
+            <figcaption>图1：丽江古城</figcaption>
+        </figure>
+
+        <figure>
+            <figcaption>图2：丽江玉龙雪山</figcaption>
+            <img src="./images/DSC_4838.jpg" alt="风光" style="width: 8%; height: auto;">
+        </figure>
+    </body>
+</html>

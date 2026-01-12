@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .search-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: 2px solid #dfe1e5;
+            border-radius: 24px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .search-box:focus {
+            border-color: #4285f4;
+            box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+        }
+        
+        .search-button {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="search" 
+               list="search-suggestions" 
+               class="search-box" 
+               placeholder="搜索编程相关内容...">
+        <button class="search-button">搜索</button>
+        
+        <datalist id="search-suggestions">
+            <option value="HTML教程">
+            <option value="CSS动画">
+            <option value="JavaScript闭包">
+            <option value="React组件">
+            <option value="Vue指令">
+            <option value="Node.js服务器">
+            <option value="Python爬虫">
+            <option value="Java多线程">
+            <option value="C++指针">
+            <option value="Git版本控制">
+        </datalist>
+    </div>
+</body>
+</html>
