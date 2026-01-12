@@ -148,5 +148,50 @@
             <figcaption>图2：丽江玉龙雪山</figcaption>
             <img src="./images/DSC_4838.jpg" alt="风光" style="width: 8%; height: auto;">
         </figure>
+
+        <!-- 
+            time:表示日期、时间或持续时间，其核心作用是提供机器可读的时间信息，同时也可以显示对用户友好的文本。它常用于博客文章发布日期、事件时间、产品上架时间等场景
+            datetime属性:提供标准化的、机器可读的时间格式（遵循 ISO 8601 标准）
+        -->
+        <p>
+            现在的时间是:
+            <time datetime="2026-01-12">2026年1月12日</time>
+        </p>
+        <p>
+            <time datetime="2026-01-13">today</time> is good day
+        </p>
+
+        <!-- 
+            novalidate:用于表单元素，表示在提交表单时不进行验证
+        -->
+        <form action="#" novalidate>
+            电子邮件：<input type="email" name="email"><br>
+            <!-- step属性:设置输入字段的步进值 -->
+            数字：<input type="number" name="number" value="10" max="20" min="5" step="5"><br>
+            网址：<input type="url" name="url"><br>
+            取值范围：<input type="range" name="rage" min="10" max="50" value="10"><br>
+
+            <!-- autofocus:自动获取焦点 只允许一个元素，默认第一个-->
+            焦点：<input type="text" name="focus" autofocus=""/>
+            </hr>
+            <input type="text" name="focus2" autofocus=""/>
+            </hr>
+
+            <br>
+            <!-- planceholder:占位符,文本为空时显示的文字 -->
+            站位文本：<input type="text" name="placeholder" placeholder="请输入内容"/><br>
+            <!-- required:验证表单是否为空，为空不允许提交 -->
+            <input type="text" name="" id="" required placeholder="必填项"/><br>
+            <!-- 
+                autocomplete:自动完成，自动填充
+                on:开启自动完成,默认
+                off:关闭自动完成
+            -->
+            <input type="text" name="key_t" autocomplete="key"/><br>
+            <!-- multiple:文件多选 -->
+            <input type="file" multiple/><br>
+            提交:<input type="submit" value="提交"/>
+        </form>
+        <input type="submit" name="outside" form="top_form">
     </body>
 </html>
