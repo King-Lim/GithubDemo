@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>伪类选择器</title>
+        <style>
+            /* 
+            伪类选择器与类选择器的区别：
+            类选择器：
+                1.类选择器以.开头
+                2.类选择器可以重复使用
+                3.使用之前要设置元素的class属性
+            伪类选择器：
+                1.伪类选择器以:开头
+                2.伪类选择器只能使用一次
+            */
+
+            /* 
+            匹配所有未访问的链接
+            */
+            a:link {
+                color: red;
+            }
+
+            /* 
+            匹配所有已访问的链接
+            */
+            a:visited {
+                color: blue;
+            }
+
+            /* 
+            鼠标放到元素上
+            */
+            a:hover {
+                color: yellow;
+            }
+
+            /* 
+            鼠标按下时候的状态
+            */
+            a:active {
+                color: green;
+            }
+
+            /* 
+            伪类选择器顺序：
+                1.:link
+                2.:visited
+                3.:focus
+                4.:hover
+                5.:active
+            */
+
+            p {
+                color: red;
+            }
+
+            p:hover {
+                color: blue;
+            }
+
+            div:hover #em1 {
+                color: red;
+                background-color: gray;
+            }
+        </style>
+    </head>
+
+    <body>
+        <a href="">点我进入激情页面</a>
+        <p>
+            pppppppppppp
+        </p>
+
+        <div>
+            <em id="em1">p111111111</em>
+            <em>em22222222</em>
+            <b>b11111111</b>
+        </div>
+
+        <div>
+            div2222222
+        </div>
+    </body>
+</html>

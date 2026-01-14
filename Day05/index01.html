@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>属性选择器</title>
+        <style>
+            /* 
+            属性选择器：
+            语法: E[atribute] 找到具有atribute属性的所有E元素,属性可以自定义
+
+            [属性名] 匹配所有包含属性的元素
+            [属性名=属性值] 匹配所有属性名和属性值都匹配的元素
+            [属性名~=属性值] 匹配所有属性名和属性值包含属性值的元素
+            [属性名|=属性值] 匹配所有属性名和属性值以属性值开头的元素
+            [属性名^=属性值] 匹配所有属性名和属性值以属性值开头的元素
+            */
+            a[href] {
+                color: red;
+            }
+
+            a[custom] {
+                color: yellow;
+            }
+
+            a[href = https] {
+                color: pink;
+            }
+
+            p[col ~= cl1] {
+                color: orange;
+            }
+
+            p[lang |= zh] {
+                color: purple;
+            }
+
+            p[class ^= aaa] {
+                color: green;
+            }
+
+            p[class $= cd] {
+                color: blue;
+            }
+
+            p[class *= bb] {
+                color: rgb(83, 99, 67);
+            }
+        </style>
+    </head>
+
+    <body>
+        <a href="###">我是一个标签</a><br>
+        <a custom>我是另一个a标签</a><br>
+        <a href="https">测试a-https</a><br>
+
+        <p col="cl1 cl2">p1p1p1p1p1pp1p1p1p1p1</p>
+        <p lang="zh-cn">p2p2p2p22p2p2p2p2p2p2p2</p>
+        <p class="aaaab">p3p3p3p3p3p3p3p3pp3p3</p>
+        <p class="aaaaabbbb2bb">p4p4p44p4p4p4p4p4p4p4p4</p>
+        <p class="aaaacccccd">p5p5p5p55p5p5pp5p5p5</p>
+        <p class="bbbbbbbbcd">p6p6p6p6p6p6p6p6p6</p>
+        <p class="aabbssddee">p777p7p7p7p7p7p7pp7</p>
+    </body>
+</html>

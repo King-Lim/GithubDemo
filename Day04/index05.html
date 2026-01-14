@@ -26,7 +26,7 @@
             */
             #div1, #div2 {
                 color: blue;
-                font-size: 20px;
+                font-size: 50px;
                 font-weight: 800;
             }
 
@@ -51,7 +51,89 @@
 
             /* 
             4. 后代选择器
+            父元素 后代元素
+            选择父元素下的所有后代元素
             */
+            div b {
+                color: red;
+            }
+            .div5 b {
+                color: blue;   /* 元素class为div5,并且拥有子元素b */
+            }
+
+            /* 
+            5. 子代选择器
+            选择元素下的第一代元素
+            */
+            .div5 > b {
+                color: rgb(57, 30, 30);
+            }
+            .div5 > div > b {
+                color: red
+            }
+
+            /* 
+            6. 相邻兄弟选择器
+            语法：选择器1 + 选择器2
+            选择相邻的兄弟元素
+            */
+            #p1 + p {
+                color: purple;
+            }
+
+            /* 
+            7. 群组选择器
+            和*通用选择器类似，同时给多个选择器设置样式
+            */
+            h3, h4, h5 {
+                color: orange;
+            }
         </style>
     </head>
+
+    <body>
+        <!-- 1. 元素选择器 -->
+        <p>pppppppppppp</p>
+
+        <!-- 2. id选择器 -->
+        <div id="div1">divdivdivdiv1</div>
+        <div id="div2">divdivdivdiv2</div>
+
+        <!-- 3. 类选择器 -->
+        <div class="div3">divdivdivdiv3</div>
+        <!-- 3. 多个类选择器 -->
+        <div class="bg cl">divdivdivdiv4</div>
+
+        <b>我是一个正常的b标签，没有父亲(body)</b>
+        <div>
+            <b>我是div下的b元素</b>
+        </div>
+        <div class="div5">
+            <b>我是div5下的b元素</b>
+            <div>
+                <b>我是div5下的div下的b元素</b>
+            </div>
+        </div>
+
+        <!-- 相邻兄弟选择器 -->
+        <p id="p1">p111</p>
+        <p>p2222</p>
+
+        <!-- 群组选择器 -->
+        <h3>标题3333</h3>
+        <h4>标题4444</h4>
+        <h5>标题5555</h5>
+
+        <p>这是一个段落</p>
+        <p>这是另一个段落</p>
+        <div id="div1">这是div1</div>
+        <div id="div2">这是div2</div>
+        <div class="div3">这是div3</div>
+        <div class="bg cl">这是div4</div>
+        <p id="p1">这是第一个段落</p>
+        <p>这是第二个段落</p>
+        <h3>标题3</h3>
+        <h4>标题4</h4>
+        <h5>标题5</h5>
+    </body>
 </html>

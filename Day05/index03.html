@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>first-child伪类</title>
+        <style>
+            /* 
+            :first-child 伪类选择器用于选择父元素中的第一个子元素。
+            父元素中的第一个子元素，可以是任何元素，包括文本节点。
+            语法: E:first-child
+            */
+
+            /* 示例 
+            li:first-child {
+            color: red;
+            }
+            */
+
+            /* 通用选择器 
+            选择所有元素的第一个子元素
+            :first-child {
+                color: blue;
+            }
+            */
+
+            /* 组合使用
+            选择 div 中第一个子元素，且该子元素必须是 p
+            div p:first-child {
+                color: red;
+            
+            }
+            */
+
+
+            div:first-child {
+                color: red;
+            }
+            p:first-child {
+                color: blue;
+            }
+
+            p>i:first-child {
+                color: green;
+            }
+            p>i:last-child {
+                color: orange;
+            }
+            h3:first-child i {
+                color: yellow;
+            }
+
+            /* 
+            :focus 伪类选择器用于选择当前获得焦点的元素。
+            :disabled 伪类选择器用于选择禁用的元素。
+            :enabled 伪类选择器用于选择可用的元素。
+            :checked 伪类选择器用于选择被选中的元素。
+            :empty 伪类选择器用于选择没有子元素的元素。
+            */
+            input:focus {
+                background-color: lightblue;
+            }
+            input:disabled {
+                background-color: lightgray;
+            }
+            input:enabled {
+                background-color: lightgreen;
+            }
+            input:checked + span{
+                width: 100px;
+                background-color: lightpink;
+            }
+
+            /* 
+            :lang() 伪类选择器用于选择具有特定语言属性的元素。
+            语法: E:lang(language)
+            */
+            p:lang(en) {
+                background-color: limegreen;
+                font-size: 20px;
+            }
+            p:lang(zh) {
+                background-color: lightcyan;
+                font-size: 30px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>div11111111</div>
+        <div>div22222222</div>
+        <div>
+            <div>
+                <p lang="zh">p1p1p1p1p1p1p1</p>
+                <p>p2p22p2p2p2pp2</p>
+            </div>
+            <p>p3p3p33p3p3p3p3</p>
+        </div>
+
+        <p>今天<i>天气</i>不太好，因为<i>不考试</i></p>
+        <p>今天<i>天气</i>不太好，因为<i>不考试</i></p>
+
+        <div>
+            <h3>今天<i>天气</i>不太好，因为<i>不考试</i></h3>
+            <h3>今天<i>天气</i>不太好，因为<i>不考试</i></h3>
+        </div>
+
+        <input type="text" name="user" id="">
+        <input type="text" name="user" disabled="">
+        <input type="radio" name="male" checked="">男
+        <input type="radio" name="female">女<span>1111</span>
+
+        <p lang="zh">中文</p>
+        <p lang="en">英文</p>
+    </body>
+</html>
