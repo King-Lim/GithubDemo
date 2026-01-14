@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>外部样式</title>
+        <!-- 
+        引入方式1
+        <link rel="stylesheet" href="index03.css"></link>
+            link: 用于引入外部资源
+            rel: 关系，定义当前文档与引入资源的关系
+            href: 引入的资源路径 
+        -->
+
+        <!-- 
+        引入方式2
+        @import url("index03.css");
+        特点：
+            import引入的样式，会覆盖外部样式
+            import需要等网页加载完成后才会加载css样式文件，因此，import引入的样式，会晚于外部样式加载
+            link：浏览器加载文件同事加载css样式文件
+        -->
+        <style>
+            @import url("index03.css");
+        </style>
+    </head>
+    
+    <body>
+        <h1>标题</h1>
+        <p>内容</p>
+    </body>
+</html>

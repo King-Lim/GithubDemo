@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>样式选择器</title>
+
+        <style>
+            /* 
+            * 通配选择器，作用所有html元素
+            一般在初始化时候使用 
+            */
+
+            /* 
+            1. 元素选择器：直接使用元素名称作为选择器，选择所有该类型的元素
+            选择界面上的所有 p 元素
+            */
+            p {
+                color: red;
+            }
+
+            /* 
+            2.id选择器：使用id属性作为选择器，选择所有具有该id的元素
+            id：唯一标记;
+            页面上的id只能出现一次; js通过id获取元素的时候必须保证一个id对应一个元素，目前同一个id对应多个元素是有样式效果.
+            id的命名：字母数字或者下划线，不能以数字开头
+            */
+            #div1, #div2 {
+                color: blue;
+                font-size: 20px;
+                font-weight: 800;
+            }
+
+            /* 
+            3.类选择器：使用class属性作为选择器，选择所有具有该class的元素
+            不同的标签可以设置同一个class属性，多个class属性之间用空格隔开
+            */
+            .div3 {
+                color: green;
+                font-size: 18px;
+                font-style: italic;
+            }
+            /* 
+            一个标签里的class属性可以有多个值，同时作用一个标签
+            */
+            .bg {
+                background-color: yellow;
+            }
+            .cl {
+                color: rosybrown;
+            }
+
+            /* 
+            4. 后代选择器
+            */
+        </style>
+    </head>
+</html>

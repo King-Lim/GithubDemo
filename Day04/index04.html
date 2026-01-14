@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>样式应用场景</title>
+        <!-- 
+            外部样式：符合w3c标准，推荐使用；结构、样式、行为三者分离，在项目开发中使用较多，便于维护和管理
+            内部样式：适用于单个页面样式定义，便于调试
+            行间样式：不符合结构与样式分离原则，样式优先级最高，适用于临时修改样式
+
+            优先级 ：行间样式 > 内部样式 > 外部样式;内部样式与外部样式优先级与位置有关，下面的优先级更高
+        -->
+
+        <style>
+            p {
+                color: green;
+                font-size: 22px;
+                background-color: lightyellow;
+            };
+
+            .h6 {
+                color: rgb(136, 180, 136);
+                font-size: 16px;
+                background-color: lightyellow;
+            }
+        </style>
+
+        <link rel="stylesheet" href="index03.css">
+    </head>
+     <body>
+        <p style="color: red;">行间样式</p>
+        <p>内部样式</p>
+        <p>外部样式</p>
+
+        <h6 class="h6">内部样式优先级</h6>
+    </body>
+</html>
