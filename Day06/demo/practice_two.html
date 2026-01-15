@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>我已开始练习</title>
+        <style>
+            #box {
+                width: 500px;
+                margin: 0 auto;
+            }
+            .cl:hover+span {
+                color: aqua;
+            }
+            .cl1:hover+span {
+                color: orange;
+            }
+            .cl2:hover+span {
+                color: cornflowerblue;
+            }
+            #b1:checked+span {
+                background-color: blue;
+            }
+            #b1:checked+span::after {
+                content: "蓝色被选中";
+            }
+            #re:checked+span {
+                background-color: red;
+            }
+            #re:checked+span::after {
+                content: "红色被选中";
+            }
+            #gr:checked+span {
+                background-color: green;
+            }
+            #gr:checked+span::after {
+                content: "绿色被选中";
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="box">
+            <form action="###">
+                <!-- 控件组 -->
+                <fieldset>  <!-- 对表单中的控制元素进行分组（也包括 label 元素） -->
+                    <legend>单选</legend>   <!-- 表示其父元素 <fieldset> 内容的标题 -->
+                    <div>
+                        <label for="b1">
+                            <input type="radio" name="name" value="0" id="b1" class="cl"><span>蓝色</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="re">
+                            <input type="radio" name="name" value="1" id="re" class="cl1"><span>红色</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="gr">
+                            <input type="radio" name="name" value="2" id="gr" class="cl2"><span>绿色</span>
+                        </label>
+                    </div>
+                </fieldset>
+                <!-- 控件组 -->
+                <fieldset>
+                    <legend>多选</legend>
+                    <ul>
+                        <li>
+                            <div>
+                                <input type="checkbox" name="name" value="0" id="b1" class="cl1"><span>蓝色</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox" name="name" value="1" id="re" class="cl1"><span>红色</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="checkbox" name="name" value="2" id="gr" class="cl1"><span>绿色</span>
+                            </div>
+                        </li>
+                    </ul>
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>

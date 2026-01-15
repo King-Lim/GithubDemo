@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>首页</title>
+        <style>
+            body {
+                font-size: 100%;
+                background-color: #f2f2f2;
+            }
+            .main {
+                max-width: 980px;
+                margin: 0 auto;
+                padding-top: 3em; /* 设置了元素顶部内边距区域的高度 */
+            }
+            .img, .img1, .img2, .caption {
+                width: 100%; /* 宽度 */
+            }
+            .img1 img{
+                max-width: 100%;
+                height: auto;
+            }
+            .gray {
+                width: 52%;
+                height: 4.5%;
+                background-color: rgba(88, 88, 88, .9);
+                position: absolute; /* 定位 */
+                bottom: 8%; /* 元素底部到父元素底部的距离 */
+                font-size: .9em; /* 字体大小 */
+                font-weight: 600; /* 字体粗细 */
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                /* vertical-align: center; 垂直居中 */
+                /* line-height: 2em; 行高 */
+                /* text-align: center; 文本居中 */
+            }
+            .gray a {
+                color: rgba(255, 255, 255, .8);
+                text-decoration: none;
+            }
+            .img2 {
+                text-align: center;
+            }
+            .img2 img {
+                max-width: 20%;
+            }
+            .caption p {
+                font-family: "微软雅黑";
+                font-size: .9em;
+                text-indent: 2em; /* 文本缩进 */
+                line-height: 1.8em; /* 行高 */
+                text-align: justify;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="main">
+            <div class="img">
+                <div class="img1">
+                    <a href="#">
+                        <img src="image/UCexplore.jpg" alt="UCexplore" title="UCexplore">
+                    </a>
+                    <div class="gray">
+                        <a href="#">UC浏览器《快于一念，因你下凡》</a>
+                    </div>
+                </div>
+                <div class="img2">
+                    <img src="image/dian.jpg" alt="dian" title="dian">
+                </div>
+            </div>
+            <div class="caption">
+                <p>
+                    Infini Studio (映纷创意)是一家创意设计机构，专注于品质型动画影像的创意与设计。我们使用设计、动画、特效及多种创新形式（Motion Graphic），
+                    将品牌与内容进行动态视觉创意呈现。并由动画导演、设计师、插画师、三维艺术家共同协作完成。服务的范围包括广告、影视、交互、新媒体等。
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>文本设置</title>
+        <style>
+            /* 
+                2.
+				text-decoration:
+				underline:下划线;
+				overline: 上划线;
+				line-through: 删除线;
+				none: 什么也没了;
+				text-decoration-color firefox支持
+
+				3.对齐方式
+				text-align:left right center
+				justify: 两端对齐，多行显示，最后一行没有效果;
+				text-align-last: 对齐文本最后一行;
+				
+				4.text-indent:文本缩进;
+				text-indent: 20px;
+				text-indent: 2em; 根据文本大小缩进两个字符
+
+				5.文本方向：
+				direction:
+				ltr: left to right;
+
+				6.文字转换
+				text-transform: uppercase;大写
+				text-transform: lowercase;小写
+				text-transform: capitalize;首字母大写
+
+				7.字母间距
+				letter-spacing:正数负数都可以;
+				word-spacing:单词间距;
+
+				8.
+				white-space: nowrap;文本不换行
+				white-space: pre;原文解析类似<pre>
+				white-space: pre-wrap;空白字符会保留（和pre区别：pre保留原始样式，再长也不换行，pre-wrap:超出换行）
+				white-space: pre-line;
+				空白字符被合并，但是保留换行；
+
+				9.line-height:上一行下边距到本行下边距;
+				文本居中：height == line-height;
+            */
+            p {
+                color: aqua;
+                text-decoration: underline; /* 下划线 */
+                text-decoration-color: yellowgreen; /* 下划线颜色 */
+                text-align: justify; /* 块元素或者单元格框的行内内容的水平对齐 */
+                text-indent: 2em; /* 文本缩进 */
+                text-transform: uppercase; /* 文本转换 */
+
+                height: 20px; /* 块元素或者单元格框的高度 */
+                white-space: nowrap; /* 文本不换行 */
+            }
+
+            .p2 {
+                background-color: red;
+                height: 100px;
+                line-height: 100px; /* 设置多行元素的空间量，如多行文本的间距。对于块级元素，它指定元素行盒（line boxes）的最小高度。对于非可替换的 inline 元素，它用于计算行盒（line box）的高度 */
+            }
+        </style>
+    </head>
+
+    <body>
+        <p>
+            he----------------取值范围0~255取值范围<br>
+            0~255取值范围
+        </p>
+
+        <p class="p2">你好哇！</p>
+    </body>
+</html>
