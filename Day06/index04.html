@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>隐藏效果</title>
+        <style>
+            /* 
+            隐藏元素：
+                display: none;
+                visibility: hidden;
+                opacity: 0;
+            */
+
+            /* 
+            显示元素：
+                display: block;
+                display: inline;
+                display: inline-block;
+                visibility: visible;
+                opacity: 1;
+            */
+
+            .div1 {
+                width: 100px;
+                height: 100px;
+                background: red; /* 背景颜色 */
+                display: none;
+                visibility: visible;
+            }
+
+            /* 
+            visibility: hidden;
+                元素隐藏，但是占位
+            visibility: visible;
+                元素显示，占位
+            */
+
+            .div2 {
+                width: 100px;
+                height: 100px;
+                background: blue;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="div1"></div>
+        <div class="div2"></div>
+    </body>
+</html>

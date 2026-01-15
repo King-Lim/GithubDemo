@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>列表样式</title>
+        <style>
+            /* 
+            list-style-type: 列表样式类型
+            list-style-position: 列表样式位置
+            list-style-image: 列表样式图片
+            list-style: 列表样式
+            */
+
+            li {
+                list-style-type: decimal;
+                    /* 
+                    none:取消样式（常用）
+                    disc:实心圆
+                    circle:空心圆
+                    square:实心方块
+                    decimal:数字
+                    decimal-leading-zero:数字前面加0
+                    lower-alpha:小写英文字母
+                    lower-latin:小写拉丁字母
+                    lower-roman:小写罗马数字
+                    upper-alpha:大写英文字母
+                    */
+                list-style-image: url(img/image.png);
+                list-style-position: inside;
+                    /* 
+                    inside:列表项内部
+                    outside:列表项外部
+                    */
+            }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li>watermelon</li>
+            <li>apple</li>
+            <li>orange</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>伪元素</title>
+        <style>
+            /* 
+            伪元素: 向特定的选择器添加样式
+            ::before ::after
+            ::selection
+            ::first-line 
+            ::first-letter 向文本中第一个字母添加样式
+            ::marker
+            ::placeholder
+            ::backdrop
+            ::file-selector-button
+            ::-webkit-file-upload-button
+            ::-webkit-scrollbar
+            ::-webkit-scrollbar-button
+            ::-webkit-scrollbar-track
+            ::-webkit-scrollbar-track-piece
+            */
+            #p1::first-letter {
+                font-size: 20px;
+                color: red;
+                background-color: blue;
+                border: 1px solid red;
+            }
+
+            /* 
+            ::first-line 向文本中第一个行添加样式
+            */
+            #p2::first-line {
+                background-color: aqua;
+            }
+            /* 混合添加样式 */
+            #p2::first-letter {
+                font-size: 20px;
+                color: red;
+                background-color: blue;
+                border: 1px solid red;
+            }
+
+            /* 
+            ::before 在元素内容前面添加新的内容
+            */
+            #p3::before {
+                /* content: "新的内容" */
+                content: "hello";
+                display: block;
+            }
+
+            /* 
+            ::after 在元素内容后面添加新的内容
+            */
+            #p3::after {
+                content: "after......";
+                background-color: red;
+                /* content:默认类型是行内元素；内容撑开，宽高不允许修改，可以同行显示 */
+                /* 把行内标签修改成块标签 */
+                display: block;
+                width: 100px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <p id="p1">ppppppppppppppppppppp111111111111111111</p>
+        <p id="p2">ppppppppppppppppppppp222222222222222222向文本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加特殊样式向文本的首
+            行添加特殊样式向文本的首行添加特殊样式向文本的首行添加向文本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加特殊样式向文本的
+            首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加向文本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加特殊样式向文本
+            的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加向文本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加特殊样式向文本
+            的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加向文本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加特殊样式向文
+            本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加向文本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加特殊样式向文
+            本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加向文本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加特殊样式向
+            文本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加向文本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加特殊样式
+            向文本的首行添加特殊样式向文本的首行添加特殊样式向文本的首行添加</p>
+        <p id="p3">ppppppppppppppppp333333333333333333</p>
+    </body>
+</html>
