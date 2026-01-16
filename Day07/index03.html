@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>inline-block</title>
+        <style>
+            div {
+                width: 500px;
+                height: 100px;
+                background-color: red;
+            }
+            #div1 {
+                display: inline;
+            }
+            #div2 {
+                display: inline;
+                background-color: aqua;
+            }
+            a {
+                background-color: gray;
+                text-decoration: none;    /* 文本上的装饰性线条的外观 */
+            }
+            #lo {
+                display: block;
+                width: 100px;
+            }
+            .div5 {
+                display: inline-block;
+                width: 50px;
+            }
+            .div6 {
+                display: inline-block;
+                width: 50px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- 
+            块元素：
+            独占一行
+            支持宽高设置
+            高度自适应
+            支持所有css样式
+        -->
+        <div id="div1">11111111</div>
+        <div id="div2">22222222222222222222222222</div>
+        <!-- 
+            行内元素/内联元素：
+            不独占一行
+            不支持宽高设置
+            高度自适应
+            同排显示；换行被解析（1px）
+        -->
+        <div>
+            <a href="#">百度</a>
+            <a href="#" id="lo">蓝鸥科技</a>
+            <a href="#">中北大学</a>
+        </div>
+        <!-- 
+            inline-block：
+            1.让块元素同排显示
+            2.内联支持宽高
+            3.默认内容撑开宽高
+            4.换行被解析
+        -->
+        <div id="div5">55</div>
+        <div id="div6">66</div>
+    </body>
+</html>

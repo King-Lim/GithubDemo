@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>盒模型</title>
+        <style>
+            .one {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                padding: 10px 50px 30px;   /* 上10 左右50 下30 */
+                border-width: 10px;   /* 边框宽度 */
+                border-left-width: 20px;
+
+                border-color: gray;    /* 边框颜色 */
+                border-left-color: yellow;     /* 左边框颜色 */
+                /* 
+                边框样式
+                    solid: 实线
+                    dashed: 虚线
+                    dotted: 点线
+                    double: 双线
+                */
+                border-style: dashed;
+
+                /* 简写 border */
+                border: 5px solid green;
+                border-left: 3px dotted gray;
+                border-right: 3px dotted gray;
+
+                /* 去除边框 */
+                border-top: none;
+
+                /* 为给定元素设置所有四个（上右下左）方向的外边距属性 */
+                margin-left: 50px;
+                margin-top: 50px;
+                margin-bottom: 50px;
+                margin-right: 50px;
+                /* 简写 margin */
+                margin: 10px 20px 40px;     /* 上 左右 下 */
+            }
+            .two {
+                height: 100px;
+                width: 100px;
+                background-color: blue;
+            }
+            span {
+                background-color: red;
+            }
+            .span1 {
+                margin-right: 20px;
+                color: #382626;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- 
+        盒模型：HTML任何元素都可以看成是一个盒模型
+        div span i
+
+        盒模型组成：内容（width height）+内边距（padding）+边框（border）+外边距（margin）
+
+        盒模型大小
+            width + margin-left + margin-right + padding-left + padding-right + border-left + border-right = 盒模型宽度
+            height + margin-top + margin-bottom + padding-top + padding-bottom + border-top + border-bottom = 盒模型高度
+        -->
+        <div class="one"></div>
+        <div class="two">
+            <span class="span1">1111</span>
+            <span>22222</span>
+        </div>
+    </body>
+</html>

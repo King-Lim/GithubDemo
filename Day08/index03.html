@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <title>margin上下重合问题</title>
+        <style>
+            /* 
+            同级div上下margin有重合现象
+            div1的margin-bottom和div2的margin-top有重合现象
+            重合后的值是设置的最大值
+            */
+            div {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+            }
+            .div1 {
+                margin-bottom: 10px;
+            }
+            .div2 {
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="div1">11</div>
+        <div class="div2">22</div>
+    </body>
+</html>
