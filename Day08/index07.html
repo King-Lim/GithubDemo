@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>盒子图-从外到内自适应</title>
+        <style>
+            body {
+                background-color: #eef4fb;
+                width: 100%;
+                height: 100%;
+            }
+            .box {
+                width: 50%;
+                height: 100%;
+                background-color: #fff;
+                margin: 50px auto;
+                overflow: hidden;
+            }
+            .box_1 {
+                width: 90%;
+                margin: 4.444%;
+                border: 1px dashed black;
+            }
+            .box_2 {
+                width: 83.95%;
+                margin: 4.41%;
+                border: 1px solid #d8efff;
+            }
+            .box_3 {
+                width: 88.23%;
+                margin: 5.88%;
+                background-color: #ffa1df;
+                overflow: hidden;
+            }
+            .box_4 {
+                width: 72.33%;
+                margin: 13.33%;
+                border: 1px dotted white;
+            }
+            .box_5 {
+                width: 94.47%;
+                margin: 2.21%;
+                border: 2px dashed white;
+            }
+            .box_6 {
+                width: 48.78%;
+                margin: 25%;
+                background-color: #97ff38;
+                border: 5px solid white;
+            }
+            p {
+                text-align: center;
+                color: white;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="box">
+            <div class="box_1">
+                <div class="box_2">
+                    <div class="box_3">
+                        <div class="box_4">
+                            <div class="box_5">
+                                <div class="box_6">
+                                    <p>BOX</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
