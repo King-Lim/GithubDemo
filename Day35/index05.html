@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+        <title>延时定时器</title>
+    </head>
+
+    <body>
+        <script>
+            // 延时定时器
+            // 参数：返回值: 计时器ID
+            // setTimeout(function, delay, arg1, arg2, ...);
+            // 延时定时器只执行一次
+            var timer = setTimeout(function() {
+                console.log('定时器执行');
+                alert('定时器执行');
+            },3000);
+
+            clearTimeout(timer);   // 取消定时器，停止定时器的执行
+        </script>
+    </body>
+</html>

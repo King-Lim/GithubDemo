@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>DEMO</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            .wrap {
+                width: 300px;
+                height: 200px;
+                margin: 50px auto;
+                font-size: 14px;
+                position: relative;       /* 设置相对定位 */
+            }
+            #index {
+                color: silver;
+                text-decoration: none;      /* 去掉超链接的默认样式 */
+            }
+            #select {
+                text-align: center;
+                line-height: 25px;          /* 设置行高 */
+                border: 1px solid silver;
+                border-radius: 5px;
+                width: 150px;
+                height: 74px;
+                position: absolute;        /* 设置绝对定位 */
+                left: 50px;
+                top: 0;
+                display: none;             /* 默认隐藏 */
+            }
+            #select ul {
+                list-style: none;          /* 去掉列表的默认样式 */
+            }
+            #select ul li span {
+                display: none;             /* 默认隐藏 */
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="wrap">
+            版本：<a href="#" id="index">默认版本</a>
+            <div id="select">
+                <ul>
+                    <li><span>/ </span>默认版本</li>
+                    <li><span>/ </span>网易6.0</li>
+                    <li><span>/ </span>网易6.0简约版</li>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            const index = document.getElementById('index');
+            console.log(index, typeof index);
+
+            const oSelect = document.getElementById('select');
+            console.log(oSelect, typeof oSelect);
+
+            const oList = document.querySelectorAll('#select ul li');
+            console.log(oList, typeof oList);
+
+            const oHidden = document.querySelectorAll("span");
+            console.log(oHidden, typeof oHidden);
+
+            index.onclick = function() {
+                index.style.display = 'none';     /* 隐藏index元素 */
+                oSelect.style.display = 'block';  /* 显示select元素 */
+            };
+            oSelect.onmouseleave = function() {
+                index.style.display = "inline-block";  /* 显示index元素 */
+                oSelect.style.display = "none";        /* 隐藏select元素 */
+            }
+        </script>
+    </body>
+</html>

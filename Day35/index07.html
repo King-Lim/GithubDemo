@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>test</title>
+
+        <style>
+            #box {
+                width: 80px;                    /* 设置盒子的宽度 */
+                border: 1px solid red;        /* 添加边框 */
+            }
+            ul {
+                padding: 0;                     /* 去掉ul的默认外边距 */
+                margin: 0;                      /* 去掉ul的默认内边距 */    
+                list-style: none;               /* 去掉ul的默认列表样式 */
+                display: none;                  /* 隐藏ul */
+            }
+            a {
+                display: inline-block;          /* 添加a标签的默认样式 */
+                margin-bottom: 15px;            /* 设置a标签的默认外边距 */
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="box">
+            <a href="#">设置</a>
+            <ul>
+                <li>张三</li>
+                <li>和</li>
+                <li>李四</li>
+                <li>是一对</li>
+            </ul>
+        </div>
+
+        <script>
+            const ObjA = document.querySelector('a');
+            const oUl = document.querySelector('ul');
+
+            let timer;     // 定义一个变量，存储定时器的ID
+            ObjA.onmousemove = function() {
+                clearTimeout(timer);   // 先清除之前的定时器，避免重复创建多个定时器
+                oUl.style.display = 'block';    // 显示ul
+                console.log('鼠标移入');
+            };
+            ObjA.onmouseout = function() {
+                clearTimeout(timer);
+                timer = setTimeout(function() {
+                    oUl.style.display = 'none';     // 隐藏ul
+                    console.log('鼠标移出');
+                }, 500)
+            };
+
+            oUl.onmousemove = function() {
+                clearTimeout(timer);
+                oUl.style.display = 'block';    // 显示ul
+                console.log('鼠标移入');
+            };
+            oUl.onmouseout = function() {
+                clearTimeout(timer);
+                timer = setTimeout(function() {
+                    oUl.style.display = 'none';     // 隐藏ul
+                    console.log('鼠标移出');
+                }, 500)
+            };
+        </script>
+    </body>
+</html>
