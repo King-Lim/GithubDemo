@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>change picture2</title>
+    </head>
+    <body>
+        <img src="img/1.jpg" alt="">
+        <div id="box">
+            <button id="left">向左</button>
+            <button id="right">向右</button>
+            <button id="autoBegin">自动开始</button>
+            <button id="stop">停止</button>
+        </div>
+
+        <script>
+            const img = document.querySelector('img');
+            console.log(img);
+
+            const leftBtn = document.getElementById('left');
+            console.log(typeof leftBtn);
+            const rightBtn = document.getElementById('right');
+            const autoBeginBtn = document.getElementById('autoBegin');
+            const stopBtn = document.getElementById('stop');
+
+            let index = 0;     // 定义一个变量，记录当前图片的索引
+            var imgs = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg"];   // 定义一个数组，存储图片的路径
+
+            leftBtn.onclick = function() {
+                changeImgs(-1);
+                img.direction = 'left';    // 记录当前的切换方向
+            };
+
+            rightBtn.onclick = function() {
+                changeImgs(1);
+                img.direction = 'right';    // 记录当前的切换方向
+            };
+
+            function changeImgs(value) {
+                index += value;
+                index = index < 0 ? imgs.length - 1 : index;   // 如果索引小于0，则重置为最后一张图片的索引
+                index = index > imgs.length - 1 ? 0 : index;   // 如果索引大于等于图片数组的长度，则重置为0
+                img.src = "img/" + imgs[index];    // 更新图片的src属性
+            }
+
+            // 自动开始事件
+            var timer;
+            autoBeginBtn.onclick = function() {
+                clearInterval(timer);   // 先清除之前的定时器，避免重复创建多个定时器
+                timer = setInterval(function() {
+                    // 根据当前的切换方向，自动切换图片
+                    let value = img.direction === 'left' ? -1 : 1;   // 如果当前的切换方向是向左，则value为-1，否则为1
+                    console.log(value);
+                    changeImgs(value);
+                }, 50);
+            };
+
+            // 停止事件
+            stopBtn.onclick = function() {
+                clearInterval(timer);   // 清除定时器，停止自动切换图片
+            };
+        </script>
+    </body>
+</html>
