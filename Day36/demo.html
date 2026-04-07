@@ -1,79 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>DEMO</title>
 
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-            }
-            .wrap {
-                width: 300px;
-                height: 200px;
-                margin: 50px auto;
-                font-size: 14px;
-                position: relative;       /* 设置相对定位 */
-            }
-            #index {
-                color: silver;
-                text-decoration: none;      /* 去掉超链接的默认样式 */
-            }
-            #select {
-                text-align: center;
-                line-height: 25px;          /* 设置行高 */
-                border: 1px solid silver;
-                border-radius: 5px;
-                width: 150px;
-                height: 74px;
-                position: absolute;        /* 设置绝对定位 */
-                left: 50px;
-                top: 0;
-                display: none;             /* 默认隐藏 */
-            }
-            #select ul {
-                list-style: none;          /* 去掉列表的默认样式 */
-            }
-            #select ul li span {
-                display: none;             /* 默认隐藏 */
-            }
-        </style>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>DEMO</title>
 
-    <body>
-        <div class="wrap">
-            版本：<a href="#" id="index">默认版本</a>
-            <div id="select">
-                <ul>
-                    <li><span>/ </span>默认版本</li>
-                    <li><span>/ </span>网易6.0</li>
-                    <li><span>/ </span>网易6.0简约版</li>
-                </ul>
-            </div>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            width: 300px;
+            height: 200px;
+            margin: 50px auto;
+            font-size: 14px;
+            position: relative;
+            /* 设置相对定位 */
+        }
+
+        #index {
+            color: silver;
+            text-decoration: none;
+            /* 去掉超链接的默认样式 */
+        }
+
+        #select {
+            text-align: center;
+            line-height: 25px;
+            /* 设置行高 */
+            border: 1px solid silver;
+            border-radius: 5px;
+            width: 150px;
+            height: 74px;
+            position: absolute;
+            /* 设置绝对定位 */
+            left: 50px;
+            top: 0;
+            display: none;
+            /* 默认隐藏 */
+        }
+
+        #select ul {
+            list-style: none;
+            /* 去掉列表的默认样式 */
+        }
+
+        #select ul li span {
+            display: none;
+            /* 默认隐藏 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        版本：<a href="#" id="index">默认版本</a>
+        <div id="select">
+            <ul>
+                <li><span>/ </span>默认版本</li>
+                <li><span>/ </span>网易6.0</li>
+                <li><span>/ </span>网易6.0简约版</li>
+            </ul>
         </div>
+    </div>
 
-        <script>
-            const index = document.getElementById('index');
-            console.log(index, typeof index);
+    <script>
+        const index = document.getElementById('index');
+        console.log("✅ 获取到index元素:", index, " 类型：", typeof index);
 
-            const oSelect = document.getElementById('select');
-            console.log(oSelect, typeof oSelect);
+        const oSelect = document.getElementById('select');
+        console.log("✅ 获取到下拉框select:", oSelect, " 类型：", typeof oSelect);
 
-            const oList = document.querySelectorAll('#select ul li');
-            console.log(oList, typeof oList);
+        const oList = document.querySelectorAll('#select ul li');
+        console.log("✅ 获取到所有li选项:", oList, " 长度：", oList.length);
 
-            const oHidden = document.querySelectorAll("span");
-            console.log(oHidden, typeof oHidden);
+        const oHidden = document.querySelectorAll("span");
+        console.log("✅ 获取到所有隐藏span:", oHidden, " 长度：", oHidden.length);
 
-            index.onclick = function() {
-                index.style.display = 'none';     /* 隐藏index元素 */
-                oSelect.style.display = 'block';  /* 显示select元素 */
+        index.onclick = function () {
+            console.log("🖱️ 点击了index,展开下拉框");
+            index.style.display = 'none';     /* 隐藏index元素 */
+            oSelect.style.display = 'block';  /* 显示select元素 */
+        };
+        oSelect.onmouseleave = function () {
+            console.log("🐭 鼠标离开下拉框，自动收起");
+            index.style.display = "inline-block";  /* 显示index元素 */
+            oSelect.style.display = "none";        /* 隐藏select元素 */
+        };
+        for (let i = 0; i < oList.length; i++) {
+            console.log(`🔄 正在给第 ${i} 个li绑定事件`);
+
+            // 鼠标移入li
+            oList[i].onmouseover = function () {
+                console.log(`🐭 鼠标移入：第${i}个选项`);
+                this.style.backgroundColor = "silver";
             };
-            oSelect.onmouseleave = function() {
-                index.style.display = "inline-block";  /* 显示index元素 */
-                oSelect.style.display = "none";        /* 隐藏select元素 */
-            }
-        </script>
-    </body>
+
+            // 鼠标移出li
+            oList[i].onmouseleave = function () {
+                console.log(`🐭 鼠标移出：第${i}个选项`);
+                this.style.backgroundColor = "transparent";
+            };
+
+            // 给每个li记录自己的索引
+            oList[i].index = i;
+
+            // 点击li选项
+            oList[i].onclick = function () {
+                console.log(`🖱️ 点击选中：第${this.index}个选项 → 内容：${this.innerText}`);
+
+                // 重置所有选项样式
+                for (var j = 0; j < oList.length; j++) {
+                    oHidden[j].style.display = "none";
+                    oList[j].style.color = "black";
+                }
+
+                // 把选中的文字显示到顶部
+                index.innerText = this.innerText;
+                this.style.color = "red"; // 选中变红
+                oHidden[this.index].style.display = "inline-block";
+
+                // 选中后收起菜单
+                index.style.display = "inline-block";
+                oSelect.style.display = "none";
+            };
+        }
+    </script>
+</body>
+
 </html>
