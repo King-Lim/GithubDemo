@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            DOM方法
+        </title>
+        <style>
+            #boxx {
+                width: 300px;
+                height: 300px;
+                border: 2px solid red;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="boxx">
+            <div class="inner">111</div>
+            <div class="inner">222</div>
+            <div class="inner">333</div>
+            <a href="#">a111</a>
+            <a href="#">a222</a>
+        </div>
+        <span class="inner">span1111</span>
+        <a href="#">a333</a>
+
+        <script>
+            //方法1：通过标签名获取元素
+            var oDiv = document.getElementById("boxx");
+            oDiv.style.border = "5px solid green";
+            console.log(oDiv);
+
+            //方法2：通过类名获取元素
+            var inners = document.getElementsByClassName("inner");
+            console.log(inners);            //返回是数组
+            inners[2].style.color = "red";
+            console.log(inners.length, inners[0], inners[1], inners[2]);
+
+            var boxInners = boxx.getElementsByClassName("inner");
+            console.log(boxInners.length);
+            
+            //方法3：通过标签名获取元素
+            var links = document.getElementsByTagName("a");
+            console.log(links);
+            links[2].style.color = "blue";
+
+            var boxLinks = boxx.getElementsByTagName("a");
+            console.log(boxLinks.length);
+            boxLinks[1].style.color = "pink";
+
+            //方法4：通过querySelectorAll获取元素
+            //返回的是一个类数组，不能直接使用数组的方法
+            var inner = document.querySelector(".inner");
+            console.log('method4:', inner);
+            console.log('method4:', inner.innerHTML);
+
+            var linkFirst = document.querySelector("#boxx > a")
+            console.log('method4:', linkFirst);
+            linkFirst.style.color = "yellow";
+
+            var linkAll = document.querySelectorAll("#boxx a");
+            console.log('method4:', linkAll);
+            linkAll[1].style.color = "black";
+        </script>
+    </body>
+</html>

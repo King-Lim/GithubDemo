@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>change picture</title>
+    </head>
+
+    <body>
+        <img src="img/1.jpg" alt="" />
+        <div id="box">
+            <button id="left">向左</button>
+            <button id="right">向右</button>
+            <button id="autoBegin">自动开始</button>
+            <button id="stop">停止</button>
+        </div>
+
+        <script>
+            // 获取元素
+            const img = document.querySelector('img');
+            console.log(img);
+
+            const leftBtn = document.getElementById('left');
+            console.log(typeof leftBtn);
+            const rightBtn = document.getElementById('right');
+            const autoBeginBtn = document.getElementById('autoBegin');
+            const stopBtn = document.getElementById('stop');
+
+            let index = 0;     // 定义一个变量，记录当前图片的索引
+            var imgs = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg"];   // 定义一个数组，存储图片的路径
+
+            // 向左事件
+            leftBtn.onclick = function() {
+                index--;
+                index = index < 0 ? imgs.length - 1 : index;   // 如果索引小于0，则重置为最后一张图片的索引
+                img.src = "img/" + imgs[index];    // 更新图片的src属性
+            };
+
+            rightBtn.onclick = function() {
+                index++;
+                index = index > imgs.length - 1 ? 0 : index;   // 如果索引大于等于图片数组的长度，则重置为0
+                img.src = "img/" + imgs[index];    // 更新图片的src属性
+            };
+
+            // 自动开始事件
+            autoBeginBtn.onclick = function() {
+                // 实现自动切换图片的逻辑
+            };
+
+            // 停止事件
+            stopBtn.onclick = function() {
+                // 实现停止自动切换图片的逻辑
+            };
+
+        </script>
+    </body>
+</html>

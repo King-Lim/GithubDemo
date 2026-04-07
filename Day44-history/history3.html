@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>History3</title>
+    </head>
+    <body>
+        页面3
+        <a href="history2.html">上一页</a>
+        <button id="pre">上一页</button>
+        <button id="first">回第一页</button>
+    </body>
+
+    <script>
+        var pre = document.getElementById('pre');
+        var first = document.getElementById('first');
+
+        pre.onclick = function() {
+            history.back();
+        };
+        first.onclick = function() {
+            history.go(-2);
+        };
+
+        console.log(history);
+    </script>
+</html>

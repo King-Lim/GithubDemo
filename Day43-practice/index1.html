@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Practice Page</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            #box {
+                width: 600px;
+                height: 650px;
+                border: 5px solid silver;
+                margin: 50px auto;
+                position: relative;
+            }
+            #top {
+                height: 50px;
+                font-size: 25px;
+                line-height: 50px;
+            }
+            #top p:first-child {
+                float: left;
+            }
+            #top p:last-child {
+                float: right;
+            }
+            #mainGame {
+                height: 600px;
+            }
+            #mainGame img {
+                float: left;
+                border: 5px solid #5e5e5e;
+                box-sizing: border-box;
+            }
+            #start {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                top: 0;
+                left: 0;
+                line-height: 600px;
+                text-align: center;
+                font-size: 40px;
+                color: white;
+                text-shadow: 0 0 20px #ff0000;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="box">
+            <div id="top">
+                <p>时间：30</p>
+                <p>得分：0</p>
+            </div>
+            <div id="mainGame">
+            </div>
+            <div id="start">开始游戏</div>
+        </div>
+    </body>
+    <script>
+        var start = document.getElementById('start');   
+        var time = document.querySelector('#top p:first-child'); 
+        var score = document.querySelector('#top p:last-child');
+        var mainGame = document.getElementById('mainGame');
+
+        start.onclick = function() {
+            this.style.display = 'none';
+            createImg();
+            controlTime();
+        }
+
+        var tapIndex = 1;
+        console.log(tapIndex);
+
+        function createImg() {
+            //清空之前的子元素
+            removeAllChildren(mainGame);
+            //每次应该创建的个数
+            tapIndex++;
+            var numberOfImg = Math.pow(tapIndex, 2);
+            console.log(typeof numberOfImg);
+
+            //确定位置
+            var positionFZM = randomNumber(0, numberOfImg - 1);
+
+            //创建图片
+            createChildren(numberOfImg, positionFZM, mainGame);
+
+            //加分
+            score.innerHTML = '得分：' + (tapIndex - 2);
+        }
+
+        function createChildren(numberOfImg, positionFZM, parent) {
+            for(var i = 0; i < numberOfImg; i++) {
+                var imgObj = document.createElement('img');
+                //宽高
+                imgObj.style.width = parent.offsetWidth / tapIndex + 'px';
+
+                if(i == positionFZM) {
+                    imgObj.src = "img/2.png";
+                    //绑定事件
+                    imgObj.onclick = createImg;
+                    //imgObj.style.borderColor = 'yellow';
+                } else {
+                    imgObj.src = "img/1.png";
+                }
+                //添加到父元素
+                parent.appendChild(imgObj);
+            }
+        }
+
+        //计时
+        function controlTime() {
+            var remainTime = 30;
+            var timer = setInterval( function() {
+                remainTime--;
+                time.innerHTML = '时间：' + remainTime;
+                if(remainTime == 0) {
+                    clearInterval(timer);
+                    start.style.display = 'block';
+                    start.innerHTML = "你一共" + score.innerText + "，点击重新开始";
+                    tapIndex = 1;
+                    time.innerHTML = '时间：30';
+                }
+            }, 1000);
+        }
+
+        function removeAllChildren(parent) {
+            while(parent.children.length > 0) {
+                parent.removeChild(parent.lastElementChild);
+            }
+        }
+
+        function randomNumber(min, max) {
+            return parseInt(Math.random() * (max - min + 1) + min);
+        }
+    </script>
+</html>

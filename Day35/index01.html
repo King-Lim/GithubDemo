@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>定时器</title>
+    </head>
+
+    <body>
+        // 定时器
+        <!-- 
+            间隔定时器： 每隔指定时间调用一次
+            延时定时器： 只调用一次，在指定时间后调用   
+
+            setInterval:
+                参数：  函数指针
+                        间隔时间（毫秒）
+        -->
+        <script>
+            var index = 0;
+            
+            // 匿名函数
+            window.setInterval(function(){
+                //console.log("Hello World " + index++);
+            }, 1000)
+
+            setInterval(function() {
+                //console.log("Hello World " + index++);
+            }, 10000);
+
+            // 函数名指针
+            function fn() {
+                //console.log("Hello World " + index++);
+            }
+            setInterval(fn, 1000);
+
+
+            // 定时器函数返回值
+            var timer = setInterval(fn, 1000);
+            console.log(timer);
+
+            var timer2 = setInterval(fn, 1000);
+            console.log(typeof timer2, timer2);
+
+
+            // 清除定时器
+            var timer3 = setInterval(function() {
+                console.log("Hello World " + index++);
+            }, 1000);
+            //alert("timer3");
+            document.onclick = function() {
+                clearInterval(timer3);
+            }
+        </script>
+    </body>
+</html>

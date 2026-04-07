@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>冒泡排序</title>
+    </head>
+
+    <body>
+        <script>
+            var arr = [5,4,3,2,1];
+            //第一趟，比较四次，把最大的放在最后
+            for(var i = 0; i < 4; i++){
+                if(arr[i] > arr[i+1]){
+                    var temp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = temp;
+                }
+            }
+            console.log(arr);
+
+            for(var i = 0; i < 3; i++){
+                if(arr[i] > arr[i+1]){
+                    var temp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = temp;
+                }
+            }
+            console.log(arr);
+
+            for(var i = 0; i < 2; i++){
+                if(arr[i] > arr[i+1]){
+                    var temp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = temp;
+                }
+            }
+            console.log(arr);
+
+            for(var i = 0; i < 1; i++){
+                if(arr[i] > arr[i+1]){
+                    var temp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = temp;
+                }
+            }
+            console.log(arr);
+
+
+            function sortArr(sortA){
+                //控制趟数
+                for(var i = 0; i < sortA.length - 1; i++){
+                    //每趟执行的次数
+                    for(var j = 0; j < sortA.length - 1 - i; j++){
+                        if(sortA[j] > sortA[j+1]){
+                            var temp = sortA[j];
+                            sortA[j] = sortA[j+1];
+                            sortA[j+1] = temp;
+                        }
+                    }
+                }
+            }
+            var arr1 = [20,30,40,25,100,78,56,89,45];
+            sortArr(arr1);
+            console.log(arr1);
+        </script>
+    </body>
+</html>

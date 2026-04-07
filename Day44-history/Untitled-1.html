@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>DataV通用组件 - 温湿度折线图（带上下限）</title>
+    <!-- 引入 ECharts 核心库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* DataV 组件容器通常占据父级100%宽高，这里设置相对定位 */
+        .datav-component {
+            width: 100%;
+            height: 100%;
+            min-height: 480px;   /* 保证图表有足够高度 */
+            background: #0b1a2f;  /* 深色背景，贴合DataV风格，可根据需要调整 */
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            position: relative;
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Microsoft YaHei', sans-serif;
+        }
+
+        /* 图表容器 */
+        .chart-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        #tempHumChart {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 自定义图例 - 右上角 */
+        .custom-legend {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            z-index: 10;
+            background: rgba(15, 25, 45, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 6px 12px;
+            display: flex;
+            gap: 12px;
+            border: 1px solid rgba(72, 187, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 32px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: rgba(30, 45, 70, 0.6);
+            color: #eef2ff;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid transparent;
+        }
+
+        .legend-item:hover {
+            background: rgba(52, 82, 120, 0.8);
+            transform: translateY(-1px);
+        }
+
+        .legend-item.active {
+            background: #2c6e9e;
+            border-color: #5aa9dd;
+            color: white;
+            box-shadow: 0 2px 8px rgba(44,110,158,0.4);
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 20px;
+        }
+
+        /* 温度色块 */
+        .temp-color {
+            background: #f97316;  /* 橙色代表温度 */
+            box-shadow: 0 0 4px #f97316;
+        }
+
+        /* 湿度色块 */
+        .humi-color {
+            background: #38bdf8;  /* 蓝色代表湿度 */
+            box-shadow: 0 0 4px #38bdf8;
+        }
+
+        /* 辅助文本，左下角提示 */
+        .info-tip {
+            position: absolute;
+            bottom: 12px;
+            left: 16px;
+            font-size: 11px;
+            color: #8aa4c0;
+            background: rgba(0,0,0,0.4);
+            padding: 4px 12px;
+            border-radius: 20px;
+            pointer-events: none;
+            z-index: 10;
+            backdrop-filter: blur(4px);
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 640px) {
+            .custom-legend { top: 8px; right: 8px; padding: 4px 8px; gap: 6px; }
+            .legend-item { padding: 4px 12px; font-size: 12px; }
+            .info-tip { font-size: 9px; bottom: 6px; left: 8px; }
+        }
+    </style>
+</head>
+<body>
+<div class="datav-component">
+    <div class="chart-wrapper">
+        <div id="tempHumChart"></div>
+    </div>
+    <!-- 右上角自定义图例 -->
+    <div class="custom-legend" id="legendContainer">
+        <div class="legend-item active" data-type="temp">
+            <span class="legend-color temp-color"></span>
+            <span>温度 (℃)</span>
+        </div>
+        <div class="legend-item" data-type="humidity">
+            <span class="legend-color humi-color"></span>
+            <span>湿度 (%)</span>
+        </div>
+    </div>
+    <div class="info-tip">
+        📊 实线：实际值 &nbsp;|&nbsp; 长虚线：上限 &nbsp;|&nbsp; 短虚线：下限
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ==================== 1. 生成模拟数据 ====================
+        // 横坐标日期：3月26日 至 4月2日 (共8天)
+        const dateLabels = [];
+        for (let i = 26; i <= 31; i++) dateLabels.push(`0326`.slice(0,2) + i); // 0326-0331
+        dateLabels.push('0401', '0402');  // 补全4月1、2日
+        // 最终日期数组: ['0326','0327','0328','0329','0330','0331','0401','0402']
+        const xAxisData = dateLabels;
+        
+        // 随机种子函数（保证每次刷新数据一致，但也可保持随机风格，这里生成固定随机范围，便于演示）
+        // 温度：实际值范围 18~32℃；湿度：实际值范围 35~85%
+        // 上下限：实际值基础上浮动，上限 +3~+8，下限 -3~-8（保证合理）
+        function getRandomValue(min, max) {
+            return Math.round((Math.random() * (max - min) + min) * 10) / 10;
+        }
+        
+        // 生成温度数据（实际值、上限、下限）
+        const tempActual = [];
+        const tempUpper = [];
+        const tempLower = [];
+        // 生成湿度数据
+        const humActual = [];
+        const humUpper = [];
+        const humLower = [];
+        
+        // 为每个日期点生成温湿度随机数值（且上下限符合业务逻辑）
+        for (let i = 0; i < xAxisData.length; i++) {
+            // 温度实际值 18~32 之间浮动
+            let tempVal = getRandomValue(18, 32);
+            // 上限比实际值高 3~8 度
+            let upperTemp = Math.round((tempVal + getRandomValue(3, 8)) * 10) / 10;
+            // 下限比实际值低 3~8 度，且不低于0（温度一般不低于0）
+            let lowerTemp = Math.round((tempVal - getRandomValue(3, 8)) * 10) / 10;
+            lowerTemp = Math.max(0, lowerTemp); // 保证下限不为负数
+            
+            tempActual.push(tempVal);
+            tempUpper.push(upperTemp);
+            tempLower.push(lowerTemp);
+            
+            // 湿度实际值 35%~85%
+            let humVal = getRandomValue(35, 85);
+            let upperHum = Math.min(100, Math.round((humVal + getRandomValue(5, 12)) * 10) / 10);
+            let lowerHum = Math.max(10, Math.round((humVal - getRandomValue(5, 12)) * 10) / 10);
+            humActual.push(humVal);
+            humUpper.push(upperHum);
+            humLower.push(lowerHum);
+        }
+        
+        // ==================== 2. 定义两组系列配置 ====================
+        // 温度组系列：实际值（实线），上限（长虚线），下限（短虚线）
+        const tempSeries = [
+            {
+                name: '温度 · 实际值',
+                type: 'line',
+                data: tempActual,
+                smooth: false,
+                symbol: 'circle',
+                symbolSize: 6,
+                lineStyle: { width: 2.5, color: '#f97316', type: 'solid' },
+                itemStyle: { color: '#f97316', borderColor: '#fff', borderWidth: 1 },
+                emphasis: { focus: 'series' },
+                tooltip: { valueFormatter: (value) => value + ' ℃' }
+            },
+            {
+                name: '温度 · 上限',
+                type: 'line',
+                data: tempUpper,
+                smooth: false,
+                symbol: 'diamond',
+                symbolSize: 5,
+                lineStyle: { width: 2, color: '#f97316', type: 'dashed', opacity: 0.8 },
+                itemStyle: { color: '#f97316' },
+                tooltip: { valueFormatter: (value) => value + ' ℃ (上限)' }
+            },
+            {
+                name: '温度 · 下限',
+                type: 'line',
+                data: tempLower,
+                smooth: false,
+                symbol: 'triangle',
+                symbolSize: 5,
+                lineStyle: { width: 2, color: '#f97316', type: 'dotted', opacity: 0.8 },
+                itemStyle: { color: '#f97316' },
+                tooltip: { valueFormatter: (value) => value + ' ℃ (下限)' }
+            }
+        ];
+        
+        // 湿度组系列：实际值（实线），上限（长虚线），下限（短虚线），主色为天蓝
+        const humiditySeries = [
+            {
+                name: '湿度 · 实际值',
+                type: 'line',
+                data: humActual,
+                smooth: false,
+                symbol: 'circle',
+                symbolSize: 6,
+                lineStyle: { width: 2.5, color: '#38bdf8', type: 'solid' },
+                itemStyle: { color: '#38bdf8', borderColor: '#fff', borderWidth: 1 },
+                emphasis: { focus: 'series' },
+                tooltip: { valueFormatter: (value) => value + ' %' }
+            },
+            {
+                name: '湿度 · 上限',
+                type: 'line',
+                data: humUpper,
+                smooth: false,
+                symbol: 'diamond',
+                symbolSize: 5,
+                lineStyle: { width: 2, color: '#38bdf8', type: 'dashed', opacity: 0.8 },
+                itemStyle: { color: '#38bdf8' },
+                tooltip: { valueFormatter: (value) => value + ' % (上限)' }
+            },
+            {
+                name: '湿度 · 下限',
+                type: 'line',
+                data: humLower,
+                smooth: false,
+                symbol: 'triangle',
+                symbolSize: 5,
+                lineStyle: { width: 2, color: '#38bdf8', type: 'dotted', opacity: 0.8 },
+                itemStyle: { color: '#38bdf8' },
+                tooltip: { valueFormatter: (value) => value + ' % (下限)' }
+            }
+        ];
+        
+        // ==================== 3. ECharts 基础配置（坐标系、轴、网格等） ====================
+        // 构建基础配置，不包含 series，后续动态替换 series 实现切换
+        function getBaseOption() {
+            return {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(56,189,248,0.1)' } },
+                    backgroundColor: 'rgba(10, 25, 47, 0.9)',
+                    borderColor: '#2c6e9e',
+                    borderWidth: 1,
+                    borderRadius: 8,
+                    textStyle: { color: '#e2e8f0', fontSize: 12 }
+                },
+                legend: {
+                    show: false   // 完全隐藏默认图例，使用自定义右上角图例
+                },
+                grid: {
+                    left: '8%',
+                    right: '7%',
+                    top: '15%',
+                    bottom: '10%',
+                    containLabel: true,
+                    borderWidth: 0,
+                    backgroundColor: 'transparent'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: xAxisData,
+                    boundaryGap: false,
+                    axisLine: { lineStyle: { color: '#4b6b8f', width: 1.5 } },
+                    axisTick: { show: false },
+                    axisLabel: {
+                        fontSize: 11,
+                        color: '#b9d0f0',
+                        rotate: 0,
+                        interval: 0,
+                        formatter: function(value) {
+                            // 格式化显示：0326 -> 3/26 更直观，但保留原样也可
+                            return value.slice(0,2) + '/' + value.slice(2);
+                        }
+                    },
+                    name: '日期',
+                    nameLocation: 'middle',
+                    nameGap: 35,
+                    nameTextStyle: { color: '#9bb8e0', fontWeight: 500, fontSize: 12 }
+                },
+                yAxis: [
+                    {
+                        type: 'value',
+                        name: '温度 (℃) / 湿度 (%)',
+                        nameLocation: 'middle',
+                        nameGap: 48,
+                        nameTextStyle: { color: '#cbdffc', fontSize: 12, fontWeight: 500 },
+                        splitLine: { lineStyle: { color: '#2a405c', type: 'dashed' } },
+                        axisLabel: { fontSize: 11, color: '#b0caf5' },
+                        axisLine: { show: false },
+                        min: (value) => {
+                            // 动态最小边界，让数据更舒适，但是为了统一，设定全局min 0 或动态取最低下限-5
+                            return 0;
+                        }
+                    }
+                ],
+                // 全局背景透明，适应DataV组件深色背景
+                backgroundColor: 'transparent',
+                toolbox: {
+                    show: true,
+                    feature: {
+                        saveAsImage: { title: '保存图片', backgroundColor: '#0b1a2f' },
+                        restore: { show: false }
+                    },
+                    right: 12,
+                    top: 8,
+                    iconSize: 16,
+                    iconStyle: { borderColor: '#6c8db0' }
+                }
+            };
+        }
+        
+        // ==================== 4. 图表实例与状态管理 ====================
+        let chart = null;
+        let currentType = 'temp';   // 'temp' 或 'humidity'
+        
+        // 根据当前激活类型获取系列数组
+        function getSeriesByType(type) {
+            return type === 'temp' ? tempSeries : humiditySeries;
+        }
+        
+        // 更新图表（切换时调用）
+        function updateChart(type) {
+            if (!chart) return;
+            const newSeries = getSeriesByType(type);
+            const option = getBaseOption();
+            option.series = newSeries;
+            // 为了动态切换时保持y轴自适应范围（因为温湿度量程不同，湿度0-100，温度0-40左右）
+            // 可以让y轴根据当前系列数据自动调整范围，更符合展示
+            if (type === 'temp') {
+                // 温度：数据范围一般在10~40之间，让y轴稍微宽松
+                option.yAxis[0].min = 0;
+                option.yAxis[0].max = 45;
+                option.yAxis[0].name = '温度 (℃)';
+            } else {
+                // 湿度：范围0~100%
+                option.yAxis[0].min = 0;
+                option.yAxis[0].max = 100;
+                option.yAxis[0].name = '湿度 (%)';
+            }
+            chart.setOption(option, true);  // 完全替换，确保系列切换干净
+        }
+        
+        // 切换图例样式（高亮当前激活的图例按钮）
+        function updateLegendUI(activeType) {
+            const tempItem = document.querySelector('.legend-item[data-type="temp"]');
+            const humItem = document.querySelector('.legend-item[data-type="humidity"]');
+            if (activeType === 'temp') {
+                tempItem.classList.add('active');
+                humItem.classList.remove('active');
+            } else {
+                humItem.classList.add('active');
+                tempItem.classList.remove('active');
+            }
+        }
+        
+        // 初始化图表
+        function initChart() {
+            const dom = document.getElementById('tempHumChart');
+            if (!dom) return;
+            chart = echarts.init(dom);
+            // 初始加载显示温度组（温度值 + 上下限）
+            currentType = 'temp';
+            updateChart(currentType);
+            updateLegendUI(currentType);
+            
+            // 监听窗口大小变化，适配容器
+            window.addEventListener('resize', () => {
+                if (chart) chart.resize();
+            });
+        }
+        
+        // 绑定自定义图例点击事件
+        function bindLegendEvents() {
+            const tempLegend = document.querySelector('.legend-item[data-type="temp"]');
+            const humLegend = document.querySelector('.legend-item[data-type="humidity"]');
+            
+            if (tempLegend) {
+                tempLegend.addEventListener('click', () => {
+                    if (currentType === 'temp') return;
+                    currentType = 'temp';
+                    updateChart(currentType);
+                    updateLegendUI(currentType);
+                });
+            }
+            if (humLegend) {
+                humLegend.addEventListener('click', () => {
+                    if (currentType === 'humidity') return;
+                    currentType = 'humidity';
+                    updateChart(currentType);
+                    updateLegendUI(currentType);
+                });
+            }
+        }
+        
+        // 启动组件
+        function mount() {
+            initChart();
+            bindLegendEvents();
+        }
+        
+        // 执行挂载
+        mount();
+        
+        // 可选：暴露方法供DataV平台调用（如果需要外部刷新数据，可在此挂载全局方法）
+        // 由于DataV通用组件通常只需一次性渲染，因此上述逻辑已满足需求。
+    })();
+</script>
+</body>
+</html>

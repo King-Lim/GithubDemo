@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>classname</title>
+        <style>
+            .normal {
+                width: 200px;
+                height: 200px;
+                background-color: red;
+                border-radius: 50%;     /* 圆角 */
+                text-align: center;     /* 水平居中 */
+                line-height: 200px;    /* 垂直居中 */
+            }
+            .active {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+                border-radius: 50%;
+                text-align: center;
+                line-height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="active" id="div1" custom="hh">
+            点我改变样式
+        </div>
+
+        <script>
+            const oDiv = document.querySelector(".active");
+            console.log(oDiv);
+            oDiv.onclick = function() {
+                // 切换样式
+                this.className = this.className === "active" ? "normal" : "active";
+                console.log(this.className);
+            }
+        </script>
+    </body>
+
+</html>

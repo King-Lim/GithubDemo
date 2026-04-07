@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>导航栏高亮切换</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            ul.nav {
+                list-style: none;
+                background-color: #f5f5f5;
+                overflow: hidden;
+            }
+            ul.nav li {
+                float: left;
+                padding: 10px 20px;
+                background: greenyellow;
+                cursor: pointer;
+                user-select: none;   /* 禁止文本被选中 */
+            }
+            /* 高亮样式 */
+            ul.nav li.active {
+                background-color: red;
+                color: #fff;
+            }
+            /* 页面内容样式 */
+            .page {
+                display: none;
+                padding: 20px;
+                margin-top: 10px;
+                border: 1px solid #ccc;
+            }
+            .page.active {
+                display: block;
+            }
+        </style>
+
+        <body>
+            <ul class="nav">
+                <li data-page="home">首页</li>
+                <li data-page="news">新闻</li>
+                <li data-page="product">产品</li>
+                <li data-page="about">关于</li>
+            </ul>
+
+            <div class="page" id="home">首页内容：欢迎来到首页</div>
+            <div class="page" id="news">新闻内容：今日新闻播报</div>
+            <div class="page" id="product">产品内容：我们的产品展示</div>
+            <div class="page" id="about">关于内容：公司介绍</div>
+
+            <script>
+                // 获取元素
+                const nav = document.querySelector('.nav');
+                console.log(nav);
+                const pages = document.querySelectorAll('.page');
+                console.log(pages);
+                const firstLi = document.querySelector('.nav li');
+                console.log(firstLi);
+                const firstPage = document.querySelector('#home');
+                console.log(firstPage);
+
+                // 默认首页高亮显示
+                firstLi.classList.add('active');
+                firstPage.classList.add('active');
+
+                // 记录上一个高亮的li
+                let preLi = firstLi;
+
+                // 3 事件委托（只给ul绑定一次）
+                nav.addEventListener('click', function (e) {
+                    // 找到最近的li(解决点到文字不生效问题)
+                    const currentLi = e.target.closest('li');
+                    console.log(currentLi);
+                    if (!currentLi) return;
+
+                    // 切换导航高亮
+                    preLi.classList.remove('active');
+                    currentLi.classList.add('active');
+                    preLi = currentLi;
+                    console.log(currentLi.innerHTML);
+
+                    // 4 切换页面显示
+                    const pageId = currentLi.dataset.page; // 获取data-page属性值
+                    console.log(pageId);
+                    pages.forEach(page => {
+                        page.classList.remove('active'); // 隐藏所有页面
+                    });
+                    document.getElementById(pageId).classList.add('active');
+                });
+            </script>
+        </body>
+    </head>
+
+</html>

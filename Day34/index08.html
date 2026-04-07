@@ -1,0 +1,27 @@
+<DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>checked</title>
+    </head>
+
+    <body>
+        <button id="choose">choose/cancel</button>
+        <input type="checkbox" id="check" />
+
+        <script>
+            const chooseBtn = document.getElementById("choose");
+            console.log(chooseBtn);
+            const check = document.getElementById("check");
+            console.log(check);
+
+            const checkBool = false;     // 定义一个变量，表示当前是否选中
+            console.log(checkBool);
+
+            chooseBtn.onclick = function() {
+                check.checked = !check.checked;     // 切换checkbox的选中状态
+                console.log(check.checked);
+            }
+        </script>
+    </body>
+</html>

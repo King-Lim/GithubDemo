@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>this是什么东西</title>
+        <style>
+            #div1 {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+            }
+            ul {
+                list-style: none;
+            }
+            ul li {
+                float: left;
+                background: greenyellow;
+                padding: 0 20px;
+                cursor: pointer;            
+            }
+            /* ul li:first-child {
+                background-color: red;
+            } */
+            /* 高亮类 */
+            ul li.active { 
+                background: red;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="div1"></div>
+        <ul>
+            <li>首页</li>
+            <li>新闻</li>
+            <li>产品</li>
+            <li>关于</li>
+        </ul>
+
+        <script>
+            console.log(window);
+            console.log(this);      //在全局作用域中，this指向window对象
+            console.log(document);
+            console.log(this.document);     //this指向window对象，所以this.document就是window.document
+
+            function fn() {
+                console.log(this);      //在函数作用域中，this指向调用该函数的对象，如果没有调用对象，则指向window对象
+            }
+            fn();
+
+            this.aa = 100;
+            console.log(window.aa)
+            // 添加点击事件
+            var oDiv = document.querySelector("#div1");
+            oDiv.onclick = function() {
+                //此时的this是绑定该方法的元素对象
+                console.log(this);      //在事件处理函数中，this指向绑定该事件的元素对象
+                this.style.backgroundColor = "blue";
+            };
+
+            // 导航栏高亮切换第一版
+            // var navs = document.querySelectorAll("li")
+            // console.log(navs);
+            // var preLi = navs[0];    //默认第一个li被选中
+            // // 遍历绑定事件
+            // for(var i = 0; i < navs.length; i++) {
+            //     console.log(navs[i]);
+            //     navs[i].onclick = function() {
+            //         preLi.style.backgroundColor = "greenyellow";     //把之前选中的li的背景色改回原来的颜色
+            //         this.style.backgroundColor = "red";               //把当前点击的li的背景色改为红色
+            //         preLi = this;
+            //         console.log(preLi);
+            //     };
+            // }
+
+
+            // 导航栏高亮切换第二版
+            const ul = document.querySelector("ul");
+            console.log(ul);
+            const navs = document.querySelectorAll("li");
+            console.log(navs.length);
+            let preLi = navs[0];    //默认第一个li被选中
+            console.log(preLi.innerHTML);
+
+            preLi.classList.add("active");    //默认第一个li被选中
+
+            // 事件委托：把事件绑定在父元素上，通过事件冒泡机制来实现对子元素的事件处理
+            ul.addEventListener('click', e => {
+                const target = e.target;     //获取事件的目标元素
+                console.log(target);
+                if(target.tagName === "LI") {   //判断目标元素是否是li
+                    preLi.classList.remove("active");    //把之前选中的li的高亮类去掉
+                    target.classList.add("active");      //把当前点击的li添加高亮类
+                    preLi = target;                      //更新preLi为当前点击的li
+                    console.log(target.innerHTML);
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>change page</title>
+
+        <style>
+            .active {
+                background-color: red;
+                color: green;
+                border-radius: 10px;
+                width: 50px;
+                height: 40px;
+            }
+            div {
+                width: 300px;
+                height: 300px;
+                background-color: red;
+                margin: 10px;
+                font-size: 50px;
+                text-align: center;
+                line-height: 300px;
+
+                display: none;      /* 默认隐藏 */
+            }
+            .show {
+                display: block;     /* 显示 */
+            }
+        </style>
+    </head>
+
+    <body>
+        <button class="active">Click me 1</button>
+        <button>Click me 2</button>
+        <button>Click me 3</button>
+        <button>Click me 4</button>
+
+        <div class="show">Content 1</div>
+        <div>Content 2</div>
+        <div>Content 3</div>
+        <div>Content 4</div>
+
+        <script>
+            // 获取按钮
+            const chooseList = document.getElementsByTagName("button");
+            console.log(chooseList);
+            // 获取内容
+            const contentList = document.getElementsByTagName("div");
+            console.log(contentList);
+            // chooslist绑定事件
+            for (let i = 0; i < chooseList.length; i++) {
+                chooseList[i].index = i;     // 给每个按钮添加一个index属性，值为i
+                console.log(chooseList[i].index);
+                chooseList[i].onclick = function() {
+                    // 遍历按钮
+                    for (let j = 0; j < chooseList.length; j++) {
+                        chooseList[j].className = "";               // 删除所有按钮的active类
+                        console.log(chooseList[j]);
+                        contentList[j].className = "";              // 删除所有内容的show类
+                        console.log(contentList[j]);
+                    }
+                    // 点击按钮高亮状态
+                    this.className = "active";
+                    console.log(this.index);
+                    // 找到对应div
+                    contentList[this.index].className = "show";
+                };
+            }
+        </script>
+    </body>
+</html>
