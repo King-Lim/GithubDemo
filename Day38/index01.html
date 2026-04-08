@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>优化版轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #wrap {
+            width: 400px;
+            height: 300px;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+            /* 核心：隐藏外面的图片 */
+            border: 1px solid #ddd;
+        }
+
+        #content {
+            width: 400%;
+            /* 装3张图 */
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        #content img {
+            width: 400px;
+            height: 300px;
+            float: left;
+        }
+
+        /* 左右按钮 */
+        #left,
+        #right {
+            width: 30px;
+            height: 45px;
+            position: absolute;
+            top: 50%;
+            margin-top: -22px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 22px;
+            text-align: center;
+            line-height: 45px;
+            cursor: pointer;
+            z-index: 99;
+            user-select: none;
+        }
+
+        #left {
+            left: 10px;
+        }
+
+        #right {
+            right: 10px;
+        }
+
+        #left:hover,
+        #right:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        /* 小圆点 */
+        #solid {
+            list-style: none;
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        #solid li {
+            width: 100px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+        }
+
+        #solid li.active {
+            background: rgb(17, 0, 255);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="content">
+            <img src="img/11.jpg">
+            <img src="img/12.jpg">
+            <img src="img/13.jpg">
+        </div>
+
+        <div id="left">&lt;</div>
+        <div id="right">&gt;</div>
+        <ul id="solid">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    <script src="js/tween.js"></script>
+    <script>
+        // 1. 获取元素
+        const wrap = document.getElementById('wrap');
+        const content = document.getElementById('content');
+        const leftBtn = document.getElementById('left');
+        const rightBtn = document.getElementById('right');
+        const dots = document.querySelectorAll('#solid li');
+        const imgWidth = content.children[0].offsetWidth; // 单张图片宽度
+        const imgCount = dots.length; // 图片总数
+        let index = 0; // 当前下标
+        let isAnimating = false; // 动画锁：防止重复点击
+
+        // 2. 移动动画函数（通用）
+        function moveTo(index) {
+            if (isAnimating) return; // 动画中禁止点击
+            isAnimating = true;
+
+            let t = 0;
+            const begin = content.offsetLeft;
+            const end = -imgWidth * index;
+            const change = end - begin;
+            const duration = 30;
+
+            const timer = setInterval(() => {
+                t++;
+                content.style.left = Tween.Linear(t, begin, change, duration) + 'px';
+                if (t >= duration) {
+                    clearInterval(timer);
+                    isAnimating = false; // 解锁
+                }
+            }, 13);
+        }
+
+        // 3. 更新小圆点
+        function updateDots() {
+            dots.forEach((dot, i) => {
+                dot.className = i === index ? 'active' : '';
+            });
+        }
+
+        // 4. 右键
+        rightBtn.onclick = function () {
+            if (isAnimating) return;
+            index++;
+            if (index >= imgCount) index = 0; // 循环
+            moveTo(index);
+            updateDots();
+        };
+
+        // 5. 左键
+        leftBtn.onclick = function () {
+            if (isAnimating) return;
+            index--;
+            if (index < 0) index = imgCount - 1; // 循环
+            moveTo(index);
+            updateDots();
+        };
+
+        // 6. 点击小圆点切换
+        dots.forEach((dot, i) => {
+            dot.onclick = () => {
+                if (isAnimating) return;
+                index = i;
+                moveTo(index);
+                updateDots();
+            }
+        });
+
+        // 7. 自动轮播（可选）
+        let autoTimer = setInterval(() => {
+            rightBtn.onclick();
+        }, 2500);
+
+        // 鼠标悬停暂停
+        wrap.onmouseenter = () => clearInterval(autoTimer);
+        wrap.onmouseleave = () => {
+            autoTimer = setInterval(() => rightBtn.onclick(), 2500);
+        };
+    </script>
+</body>
+
+</html>

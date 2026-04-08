@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>导航</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 500px;
+            height: 100px;
+            border: 2px solid silver;
+            margin: 40px auto;
+            position: relative;
+        }
+        #wrap ul {
+            list-style: none;
+            overflow: hidden;
+            font-size: 25px;
+            text-align: center;
+        }
+        #wrap ul li {
+            float: left;
+            width: 20%;
+            padding: 10px 0;
+        }
+        #wrap ul li a {
+            text-decoration: none;
+            color: silver;
+        }
+        #scroll {
+            height: 5px;
+            width: 20%;
+            background-color: indianred;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <ul>
+            <li><a href="###">首页</a></li>
+            <li><a href="###">新闻</a></li>
+            <li><a href="###">产品</a></li>
+            <li><a href="###">关于</a></li>
+            <li><a href="###">联系</a></li>
+        </ul>
+
+        <div id="scroll"></div>
+    </div>
+</body>
+
+<script src="js/tween.js"></script>
+<script>
+    var scroll = document.getElementById("scroll");
+    var navList = document.querySelectorAll("#wrap ul li");
+
+    // 绑定事件
+    var index = 0;     // 记录滑块位置
+    for (var i = 0; i < navList.length; i++) {
+        navList[i].index = i;       //自定义属性
+        navList[i].onclick = function () {
+            console.log(this.index);
+
+            var t = 0;
+            // 初始位置每次不同，滑块距离左边的位置
+            var b = index * this.offsetWidth;
+            console.log("初始位置：" + b);
+
+            // 位置变化量（当前位置-初始位置）
+            var c = this.index * this.offsetWidth - b;
+            console.log("位置变化量" + c);
+
+            var d = 200;
+
+            index = this.index;
+            move(scroll, t, b, c, d);
+        };
+    }
+    var timer;
+    function move(obj, t, b, c, d) { 
+        clearInterval(timer);
+        timer = setInterval(function () { 
+            t += 5;
+            obj.style.left = Tween.Bounce.easeOut(t,b,c,d) + "px";
+            if (t == d) {
+                clearInterval(timer);
+            }
+        }, 16);
+    }
+</script>
+</html>
