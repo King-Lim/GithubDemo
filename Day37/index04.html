@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Object Basic</title>
+    </head>
+
+    <body>
+        <script>
+
+            var dg = {
+                name: "Dog",
+                run: function() {
+                    alert("Dog is running...");
+                    alert(this.name);
+                },
+                // 属性值是对象类型
+                bounce: {
+                    speed: 10,
+                    easeInOut: function() {
+                        alert("Dog is bouncing...");
+                    },
+                },
+            };
+
+            console.log(dg);
+            console.log(dg.name);
+            //console.log(dg.run());
+            console.log(dg.bounce);
+            //console.log(dg.bounce.easeInOut());
+            console.log(dg.bounce.speed);
+        </script>
+    </body>
+</html>
