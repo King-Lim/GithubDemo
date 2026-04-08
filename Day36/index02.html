@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>notitle</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box {
+            height: 500px;
+            width: 400px;
+            border: 2px solid silver;
+            margin: 40px auto;
+            padding: 10px;
+        }
+
+        .navgation {
+            font-size: 30px;
+            overflow: hidden;
+        }
+
+        #time {
+            float: left;
+        }
+
+        #score {
+            float: right;
+        }
+
+        #question {
+            font-size: 200px;
+            text-align: center;
+            height: 200px;
+            line-height: 200px;
+            margin-top: 80px;
+        }
+
+        .colorList ul {
+            list-style: none;
+            font-size: 50px;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 80px;
+        }
+
+        .colorList li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="navgation">
+            <div id="time">剩余时间： 500s</div>
+            <div id="score">得分： 0</div>
+        </div>
+
+        <div id="question">黄</div>
+
+        <div class="colorList">
+            <ul>
+                <li>黄</li>
+                <li>绿</li>
+                <li>蓝</li>
+                <li>紫</li>
+                <li>粉</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+<script>
+    // ✅ 分数变量提前声明（修复第二个报错）
+    let scoreFlag = 0;
+    const score = document.getElementById("score");
+
+    const time = document.getElementById("time");
+    let timeStap = 500;
+
+    const timer = setInterval(function () {
+        timeStap--;
+        time.innerText = "剩余时间：" + timeStap + "s"; // ✅ 修复 timer → time
+        //console.log(timeStap);
+        if (timeStap == 0) {
+            clearInterval(timer);
+            alert("GAME OVER!!!");
+        }
+    }, 1000);
+
+    const question = document.getElementById("question");
+    const textArr = ["黄", "绿", "蓝", "紫", "粉"];
+    const colorArr = ["yellow", "green", "blue", "purple", "pink"]; // ✅ 修复 #blue → blue
+
+    function changeQuestion() {
+        let textRand = randNum(0, 4);
+        question.innerText = textArr[textRand];
+        console.log(question.innerText);
+        let colorRand = randNum(0, 4);
+        question.style.color = colorArr[colorRand];
+        console.log(question.style.color);
+
+        question.answer = textArr[colorRand];
+        console.log("正确答案文字：" + question.answer);
+        document.title = question.answer;
+    }
+
+    function randNum(min, max) {
+        return parseInt(Math.random() * (max - min + 1) + min);
+    }
+    changeQuestion();
+
+    const colorList = document.getElementsByClassName("colorList")[0];
+    const colors = document.querySelectorAll("li");
+
+    for (var i = 0; i < colors.length; i++) {
+        colors[i].onclick = function () {
+            const result = judgeColor(this.innerText);
+            recordScore(result);
+            changeQuestion();
+            layout();
+        };
+    }
+
+    function judgeColor(chooseColor) {
+        return chooseColor == question.answer;
+    }
+
+    function recordScore(result) {
+        scoreFlag = result ? ++scoreFlag : --scoreFlag;
+        score.innerText = "得分：" + scoreFlag;
+    }
+
+    const textArrLayout = ["黄", "绿", "蓝", "紫", "粉"];
+    const colorArrLayout = ["yellow", "green", "blue", "purple", "pink"];
+
+    function layout() {
+        randomArr(textArrLayout);
+        randomArr(colorArrLayout);
+        for (let i = 0; i < colors.length; i++) {
+            colors[i].innerText = textArrLayout[i];
+            colors[i].style.color = colorArrLayout[i];
+        }
+    }
+
+    function randomArr(sourceArr) {
+        for (let i = 0; i < sourceArr.length; i++) {
+            let randN = randNum(0, sourceArr.length - 1);
+            let temp = sourceArr[i];
+            sourceArr[i] = sourceArr[randN];
+            sourceArr[randN] = temp;
+        }
+    }
+
+    layout();
+</script>
+
+</html>
