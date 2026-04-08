@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>mail choose</title>
+
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            ul {
+                list-style: none;
+            }
+            #wrap {
+                height: 400px;
+                width: 400px;
+                border: 1px solid silver;
+                margin: 0 auto;
+            }
+            #left {
+                float: left;
+                width: 100px;
+                position: relative;
+            }
+            #left li {
+                width: 100px;
+                height: 100px;
+                border: 1px solid silver;
+                box-sizing: border-box;             /* 边框不超出元素 */
+                text-align: center;
+                line-height: 100px;
+                cursor: pointer;
+                font-size: 14px;
+            }
+            /* 选中状态下的样式 */
+            .active {
+                background-color: silver;
+                color: brown;
+            }
+            #slider {
+                border: 15px solid transparent;
+                width: 0;
+                border-right-color: brown;
+                position: absolute;             
+                right: 0;
+                top: 0;
+                transition: top 0.5s;               
+            }
+        </style>
+    </head>
+</html>
