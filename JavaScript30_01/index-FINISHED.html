@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://fav.farm/%F0%9F%A4%AA">
+</head>
+
+<body>
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="soundStyle">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="soundStyle">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="soundStyle">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="soundStyle">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="soundStyle">boom</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="soundStyle">ride</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="soundStyle">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="soundStyle">tom</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="soundStyle">tink</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+</body>
+
+<script>
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+
+    console.log('✅ 动画执行完毕，准备移除 .playing 样式');
+    console.log('👉 动画属性：', e.propertyName);
+    console.log('👉 操作的DOM元素:', e.target);
+    console.log('👉 动画时长:', e.elapsedTime, '👉 事件目标:', e.target);
+
+    e.target.classList.remove('playing');
+    console.log('✅ 已成功移除 .playing 样式\n');
+
+    // setTimeout(() => {
+    //   this.dataset.remove = false;     // 这里的 this 是指向触发事件的 DOM 元素，即 e.target
+    //   console.log('⏳ 100ms 后已重置 dataset.remove 属性:', this.dataset.remove);
+    // }, 100)
+  }
+
+  function playSound(e) {
+    console.log(e);
+    console.log('🎹 检测到按键按下,keyCode:', e.keyCode);
+
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+
+    if (!audio) {
+      console.log('❌ 没有找到匹配的音频，函数终止');
+      return;
+    }; // stop the function from running all together
+
+    console.log('✅ 找到对应音频元素：', audio);
+    console.log('✅ 音频文件地址：', audio.src);
+    console.log('✅ 找到对应按键元素：', key);
+
+    audio.currentTime = 0; // rewind to the start
+
+    audio.play();
+    console.log('▶️ 开始播放音频');
+
+    key.classList.add('playing');
+    console.log('✅ 已添加 .playing 样式');
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));     // turn the node list into an array
+  console.log('🎯 页面加载完成，获取到所有按键元素：', keys);
+
+  keys.forEach(key =>
+    key.addEventListener('transitionend', removeTransition)
+  );
+  console.log('🔗 已给所有按键绑定 transitionend 监听');
+
+  window.addEventListener('keydown', playSound);
+  console.log('🔗 已全局监听 keydown 事件\n');
+</script>
+
+</html>

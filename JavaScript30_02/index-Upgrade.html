@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>经典表盘时钟 | 精准刻度与数字</title>
+    <link rel="icon" href="https://fav.farm/%F0%9F%95%94%EF%B8%8F">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="clock">
+        <div class="clock-face">
+            <canvas class="clock-canvas" id="clockCanvas"></canvas>
+            <div class="hand hour-hand"></div>
+            <div class="hand minute-hand"></div>
+            <div class="hand second-hand"></div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // 获取DOM元素
+            const secondHand = document.querySelector('.second-hand');
+            const minuteHand = document.querySelector('.minute-hand');
+            const hourHand = document.querySelector('.hour-hand');
+            const canvas = document.getElementById('clockCanvas');
+
+            console.log('DOM元素已获取:', { 
+                secondHand: !!secondHand, 
+                minuteHand: !!minuteHand, 
+                hourHand: !!hourHand, 
+                canvas: !!canvas 
+            });
+            
+            let resizeTimer = null;
+            let lastSecond = -1;
+
+            // 绘制表盘刻度与数字
+            function drawClockFace() {
+                console.log('drawClockFace执行! 绘制表盘刻度和数字');
+                if (!canvas || !canvas.parentElement) {
+                    console.log('canvas不存在');
+                    return;
+                };
+                const rect = canvas.parentElement.getBoundingClientRect();      // 获取canvas的父元素
+                const width = rect.width;
+                const height = rect.height;
+                console.log('canvas父元素(表盘)尺寸:', { width, height });
+
+                if (width === 0 || height === 0) {
+                    console.log('canvas父元素尺寸为0,重新绘制表盘');
+                    requestAnimationFrame(drawClockFace);                       // 尺寸为0，则重新绘制表盘
+                    return;
+                }
+
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.scale(dpr, dpr);
+
+                const centerX = width / 2;
+                const centerY = height / 2;
+                const radius = Math.min(width, height) / 2;
+
+                console.log('表盘中心坐标:', { centerX, centerY }, '表盘半径:', radius, '设备像素比:', dpr);
+
+                // 绘制刻度
+                const minTick = radius * 0.085;
+                const hourTick = radius * 0.135;
+                const startMin = radius - minTick;
+                const startHour = radius - hourTick;
+
+                function drawTick(angle, isHour) {
+                    const rad = (angle - 90) * Math.PI / 180;
+                    const x1 = centerX + startMin * Math.cos(rad);
+                    const y1 = centerY + startMin * Math.sin(rad);
+                    const x2 = centerX + (isHour ? startHour : startMin) * Math.cos(rad);
+                    const y2 = centerY + (isHour ? startHour : startMin) * Math.sin(rad);
+
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.lineWidth = isHour ? 2.4 : 1.2;
+                    ctx.lineCap = 'round';
+                    ctx.strokeStyle = isHour ? '#2c3e2f' : '#5a6e5a';
+                    ctx.stroke();
+                }
+
+                // 60个刻度
+                for (let i = 0; i < 60; i++) {
+                    drawTick(i * 6, i % 5 === 0);
+                }
+
+                // 12/3/6/9强化
+                [0, 90, 180, 270].forEach(deg => {
+                    const rad = (deg - 90) * Math.PI / 180;
+                    const x1 = centerX + (radius - hourTick - 2) * Math.cos(rad);
+                    const y1 = centerY + (radius - hourTick - 2) * Math.sin(rad);
+                    const x2 = centerX + (radius - 3) * Math.cos(rad);
+                    const y2 = centerY + (radius - 3) * Math.sin(rad);
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.lineWidth = 3;
+                    ctx.strokeStyle = '#b86f3c';
+                    ctx.stroke();
+                });
+
+                // 装饰圆环
+                [radius - hourTick - 1, radius - minTick - 2, radius - 2].forEach((r, i) => {
+                    ctx.beginPath();
+                    ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
+                    ctx.lineWidth = i === 0 ? 1.2 : 0.8;
+                    ctx.strokeStyle = ['#c3aa7b', '#d6c099', '#eeddbb'][i];
+                    ctx.stroke();
+                });
+
+                // 绘制数字
+                const numbers = [
+                    { a: 0, t: '12', big: true },
+                    { a: 30, t: '1' }, { a: 60, t: '2' },
+                    { a: 90, t: '3', big: true },
+                    { a: 120, t: '4' }, { a: 150, t: '5' },
+                    { a: 180, t: '6', big: true },
+                    { a: 210, t: '7' }, { a: 240, t: '8' },
+                    { a: 270, t: '9', big: true },
+                    { a: 300, t: '10' }, { a: 330, t: '11' }
+                ];
+
+                numbers.forEach(n => {
+                    const rad = (n.a - 90) * Math.PI / 180;
+                    const r = n.big ? radius * 0.72 : radius * 0.63;
+                    const x = centerX + r * Math.cos(rad);
+                    const y = centerY + r * Math.sin(rad);
+                    ctx.font = n.big ? `bold ${radius * 0.13}px Arial` : `${radius * 0.095}px Arial`;
+                    ctx.fillStyle = n.big ? '#4f5e48' : '#6f7a63';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(n.t, x, y);
+                });
+            }
+
+            // 更新指针
+            function setDate() {
+                const now = new Date();
+                const s = now.getSeconds();
+                const m = now.getMinutes();
+                const h = now.getHours() % 12;
+
+                // 修复0秒跳变动画
+                if (s === 0 && lastSecond === 59) {
+                    secondHand.style.transition = 'none';
+                } else {
+                    secondHand.style.transition = 'all 0.05s cubic-bezier(0.2,1.8,0.4,1)';
+                }
+                lastSecond = s;
+
+                const sDeg = s / 60 * 360 + 90;
+                const mDeg = m / 60 * 360 + s / 60 * 6 + 90;
+                const hDeg = h / 12 * 360 + m / 60 * 30 + 90;
+
+                secondHand.style.transform = `rotate(${sDeg}deg)`;
+                minuteHand.style.transform = `rotate(${mDeg}deg)`;
+                hourHand.style.transform = `rotate(${hDeg}deg)`;
+            }
+
+            // 窗口缩放重绘
+            function handleResize() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(drawClockFace, 100);
+            }
+
+            // 初始化
+            function init() {
+                drawClockFace();
+                setDate();
+                setInterval(setDate, 1000);
+                window.addEventListener('resize', handleResize);
+            }
+
+            window.addEventListener('load', init);
+        })();
+    </script>
+</body>
+
+</html>
