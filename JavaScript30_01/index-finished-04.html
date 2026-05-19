@@ -39,13 +39,20 @@
         const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
         console.table(fullNames);
 
-        const ordered = inventors.sort((a, b) => a.yaer > b.year ? 1 : -1);                 // Sort by birthdate, oldest to youngest
+        const ordered = inventors.sort((a, b) => a.year > b.year ? 1 : -1);                 // Sort by birthdate, oldest to youngest
         console.table(ordered);
 
         const totalYears = inventors.reduce((total,inventor) => {
             return total + (inventor.passed - inventor.year);
         }, 0);
         console.table(totalYears);
+
+        const oldest = inventors.sort(function(a, b) {
+            const lastInventor = a.passed - a.year;
+            const nextInventor = b.passed - b.year;
+            return lastInventor > nextInventor ? -1 : 1;
+        });
+        console.table(oldest);
     </script>
 </body>
 
