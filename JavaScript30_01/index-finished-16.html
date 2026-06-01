@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Mouse Shadow</title>
+    </head>
+    <body>
+        <div class="hero">
+            <h1 contenteditable>WOAH!</h1>
+        </div>
+
+        <style>
+            html {
+                color: black;
+                font-family: sans-serif;
+            }
+
+            body {
+                margin: 0;
+            }
+
+            .hero {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: black;
+            }
+
+            h1 {
+                text-shadow: 10px 10px 0 rgba(0, 0, 0, 0.6);
+                font-size: 100px;
+            }
+        </style>
+
+        <script>
+            const hero = document.querySelector('.hero');
+            console.log(hero);
+            const text = hero.querySelector('h1');
+            console.log(text);
+            const walk = 500;
+
+            let mode = 0;
+
+            function shadow(e) {
+
+                if (mode !== 1) return;
+
+                const {offsetWidth: width, offsetHeight: height} = hero;
+                let {offsetX: x, offsetY: y} = e;
+                console.log(x, y);
+
+                if (this !== e.target) {
+                    x = x + e.target.offsetLeft;
+                    y = y + e.target.offsetTop;
+                    //console.log(x, y);
+                }
+
+                const XWalk = Math.round((x / width * walk) - (walk / 2));
+                const YWalk = Math.round((y / height * walk) - (walk / 2));
+
+                text.style.textShadow = `
+                    ${XWalk}px ${YWalk}px 0 rgba(255, 0, 255, 0.4),
+                    ${XWalk * -1}px ${YWalk}px 0 rgba(0, 255, 255, 0.4),
+                    ${YWalk}px ${XWalk * -1}px 0 rgba(0, 255, 0, 0.4),
+                    ${YWalk * -1}px ${XWalk}px 0 rgba(0, 0, 255, 0.4)
+                `;
+            }
+
+            hero.addEventListener('click', () => {
+                mode ++;
+                if (mode > 2) mode = 0;
+
+                if (mode === 0) {
+                    text.style.textShadow = '10px 10px 0 rgba(0, 0, 0, 0.6)';
+                    console.log('mode 0 关闭跟随,恢复默认样式');
+                }
+
+                if (mode === 1) {
+                    console.log('mode 1 开启跟随');
+                }
+
+                if (mode === 2) {
+                    console.log('mode 2 暂停跟随');
+                }
+            })
+
+            hero.addEventListener('mousemove', shadow);
+        </script>
+    </body>
+</html>

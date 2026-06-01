@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Key Detection</title>
+    <link rel="icon" href="https://fav.farm/✅" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Avenir", Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f1f1f1;
+            color: #333;
+        }
+
+        .title {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #2d3436;
+        }
+
+        .tip {
+            font-size: 18px;
+            color: #636e72;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .input-show {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0984e3;
+            letter-spacing: 2px;
+            min-height: 30px;
+            padding: 10px 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .success {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+            color: #00b894;
+            font-weight: bold;
+            opacity: 0;
+            pointer-events: none;
+            animation: successAnim 2s ease forwards;
+        }
+
+        @keyframes successAnim {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="title">🎮 键盘彩蛋检测</h1>
+    <p class="tip">
+        在页面上输入密码<br>
+        (默认密码: <strong>lizuyan</strong>, 你可以在代码中修改它)
+    </p>
+    <div class="input-show" id="show"></div>
+    <div class="success" id="successMsg">✅ 密码正确！</div>
+    
+    <script>
+        const pressed = [];
+        const secretCode = 'lizuyan';
+        const showInput = document.querySelector('#show');
+        const successMsg = document.querySelector('#successMsg');
+
+        window.addEventListener('keyup', (e) => {
+            console.log('按下的键:', e.key);
+            //把按键加到数组中
+            pressed.push(e.key);
+
+            //保持数组长度不超过密码长度
+            pressed.splice(
+                -secretCode.length,
+                pressed.length - secretCode.length
+            );
+
+            //页面实时显示输入内容
+            showInput.textContent = pressed.join('');
+
+            if (pressed.join("").includes(secretCode)) {
+                console.log('DING DING密码正确!');
+                
+                successMsg.style.display = 'block';
+
+                cornify_add(); // 添加彩蛋效果
+                alert("恭喜你触发隐藏彩蛋!");
+            }
+
+            console.log('当前输入记录:', pressed);
+        });
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://www.cornify.com/js/cornify.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'cornify-js'));
+    </script>
+</body>
+
+</html>
