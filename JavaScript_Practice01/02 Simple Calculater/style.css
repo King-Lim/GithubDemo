@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background-color: #858585;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 计算器容器 */
+#calculator {
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* 显示屏 */
+#display {
+  height: 90px;
+  background-color: #f9fafb;
+  text-align: right;
+  font-size: 36px;
+  padding: 20px 24px;
+  color: #111827;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* C 键单独一行，尺寸和其他按钮完全一致 */
+#c-key {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background-color: #e5e7eb;
+}
+
+/* 4列键盘 */
+#keyboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background-color: #e5e7eb;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 所有按钮统一样式 */
+button {
+  height: 60px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: #ececec;
+  color: #111827;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+button:hover {
+  background-color: #f3f4f6;
+}
+
+button:active {
+  background-color: #d1d5db;
+}
+
+/* 运算符按钮 */
+button.operator {
+  background-color: #ff9500;
+  color: white;
+  font-weight: 600;
+}
+
+button.operator:hover {
+  background-color: #ff7700;
+}
+
+/* C 清除键：大小和其他按钮完全一样，仅颜色不同 */
+#c-key button {
+  height: 60px;
+  font-size: 28px;
+  background-color: #ff3b30;
+  color: white;
+  font-weight: 600;
+}
+
+#c-key button:hover {
+  background-color: #ff2d23;
+}
