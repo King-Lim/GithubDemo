@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="uft-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A股股价查询</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    </link>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="tip">输入A股代码:000001/600036,点击【查询股价】获取历史行情</div>
+        <div class="search-box">
+            <input type="text" id="stockCode" placeholder="输入股票代码,例:000001" value="000001">
+            <button id="searchBtn">查询股价</button>
+        </div>
+        <!-- 折线图容器 -->
+        <div id="chartBox"></div>
+        <!-- 数据表格 -->
+        <table id="stockTable">
+            <thead>
+                <tr>
+                    <th>交易日期</th>
+                    <th>开盘价</th>
+                    <th>收盘价</th>
+                    <th>最高价</th>
+                    <th>最低价</th>
+                    <th>成交量</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Microsoft Yahei
+}
+
+.wrap {
+    width: 92%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+.search-box {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+#stockCode {
+    padding: 8px 12px;
+    width: 260px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px
+}
+
+#searchBtn {
+    padding: 8px 22px;
+    background: #1677ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px
+}
+
+#searchBtn:hover {
+    background: #0958d9
+}
+
+#chartBox {
+    width: 100%;
+    height: 420px;
+    border: 1px solid #eee;
+    margin-bottom: 25px
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #eee
+}
+
+th,
+td {
+    border: 1px solid #eee;
+    padding: 10px;
+    text-align: center
+}
+
+th {
+    background: #f5f7fa
+}
+
+.tip {
+    color: #999;
+    margin: 8px 0
+}
